@@ -1,0 +1,67 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.dispatchesViewer",
+      "description": "dispatchesViewer"
+    },
+    {
+      "name": "$XSAPPNAME.dispatchesCreate",
+      "description": "dispatchesCreate"
+    },
+    {
+      "name": "$XSAPPNAME.dispatchesUpdate",
+      "description": "dispatchesUpdate"
+    },
+    {
+      "name": "$XSAPPNAME.dispatchesDelete",
+      "description": "dispatchesDelete"
+    },
+    {
+      "name": "$XSAPPNAME.dispatchesManager",
+      "description": "dispatchesManager"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "dispatchesViewer",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.dispatchesViewer"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "dispatchesCreate",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.dispatchesCreate"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "dispatchesUpdate",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.dispatchesUpdate"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "dispatchesDelete",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.dispatchesDelete"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "dispatchesManager",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.dispatchesManager"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

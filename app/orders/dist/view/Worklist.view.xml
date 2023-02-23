@@ -1,0 +1,117 @@
+<mvc:View controllerName="com.orders.orders.controller.Worklist" 
+            xmlns="sap.m" 
+            xmlns:mvc="sap.ui.core.mvc" 
+            xmlns:core="sap.ui.core" 
+            xmlns:semantic="sap.f.semantic"
+            xmlns:l="sap.ui.layout" 
+            xmlns:form="sap.ui.layout.form" 
+            xmlns:uxap="sap.uxap" 
+            xmlns:u="sap.ui.unified" 
+>
+    <semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+        <semantic:titleHeading>
+            <Title id="_IDGenTitle1" text="{i18n>worklistTitle}" level="H2" />
+        </semantic:titleHeading>
+
+        <semantic:content>
+            <Table
+                id="table"
+                width="auto"
+                items="{
+                    path: '/CargoOrders',
+                    sorter: {
+                        path: 'ID',
+                        descending: false
+                    }
+                }"
+                noDataText="{worklistView>/tableNoDataText}"
+                busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+                growing="true"
+                growingScrollToLoad="true"
+                updateFinished=".onUpdateFinished"
+                mode="SingleSelectLeft"
+            >
+                <headerToolbar>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <Title id="tableHeader" text="{worklistView>/worklistTableTitle}" level="H3" />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                        <SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search=".onSearch">
+                            <layoutData>
+                                <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData1" maxWidth="200px" priority="NeverOverflow" />
+                            </layoutData>
+                        </SearchField>
+                        <ToolbarSeparator id="_IDGenToolbarSeparator1" />
+                        <Button id="createBtn" text="{i18n>Create}" press="createPress" />
+                        <Button id="deleteBtn" text="{i18n>Delete}" press="onDelete" />
+                        <ToolbarSeparator id="_IDGenToolbarSeparator2" />
+                        <!-- <Button icon="sap-icon://action-settings" press="onSetting" /> -->
+                        <Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onExport" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column id="iconColumn" />
+                    <Column id="statusColumn">
+                        <Text text="{i18n>Status}" id="statusColumnTitle" />
+                    </Column>
+                    <Column id="orderColumn">
+                        <Text text="{i18n>Order}" id="orderColumnTitle" />
+                    </Column>
+                    <Column id="cargo_dateColumn">
+                        <Text text="{i18n>Cargo_date}" id="cargo_dateColumnTitle" />
+                    </Column>
+                    <Column id="Vehicle_plateColumn">
+                        <Text text="{i18n>Vehicle_plate}" id="vehicle_plateColumnTitle" />
+                    </Column>
+                    <Column id="trailerColumn">
+                        <Text text="{i18n>Trailer}" id="trailerColumnTitle" />
+                    </Column>
+                    <Column id="capacityColumn">
+                        <Text text="{i18n>Capacity}" id="capacityColumnTitle" />
+                    </Column>
+                    <Column id="id_cardColumn">
+                        <Text text="{i18n>ID_Card}" id="id_cardColumnTitle" />
+                    </Column>
+                    <Column id="driver_nameColumn">
+                        <Text text="{i18n>Driver_name}" id="driver_nameColumnTitle" />
+                    </Column>
+                    <Column id="driver_last_nameColumn">
+                        <Text text="{i18n>Driver_last_name}" id="driver_last_nameColumnTitle" />
+                    </Column>
+                    <!-- <Column id="driving_licenseColumn">
+                                        <Text text="{i18n>Driving_license}" id="driving_licenseColumnTitle" />
+                                    </Column> -->
+                    <Column id="Cell_phone_numberColumn">
+                        <Text text="{i18n>Cell_phone_number}" id="Cell_phone_numberColumnTitle" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem id="_IDGenColumnListItem1" type="Navigation" press=".onPress">
+                        <cells>
+                            <core:Icon id="_IDGenIcon1" color="blue" width="10rem" src="sap-icon://future" />
+                            <ObjectIdentifier id="_IDGenObjectIdentifier1" text="{status_order}" />
+                            <Text id="_IDGenText1" text="{order_id}" />
+                            <Text id="_IDGenText2" text="{cargo_date}" />
+                            <Text id="_IDGenText3" text="{vehicle_plate}" />
+                            <Text id="_IDGenText4" text="{trailer}" />
+                            <Text id="_IDGenText5" text="{capacity}" />
+                            <Text id="_IDGenText6" text="{id_card}" />
+                            <Text id="_IDGenText7" text="{driver_name}" />
+                            <Text id="_IDGenText8" text="{driver_last_name}" />
+                            <Text id="_IDGenText9" text="{driving_license}" />
+                            <Text id="_IDGenText10" text="{cell_phone_number}" />
+                            <Text id="_IDGenText11" text="{city_route_code}" />
+                            <Text id="_IDGenText12" text="{department_route_code}" />
+                            <Text id="_IDGenText13" text="{ID}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+
+        <semantic:sendEmailAction>
+            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress" />
+        </semantic:sendEmailAction>
+    </semantic:SemanticPage>
+</mvc:View>

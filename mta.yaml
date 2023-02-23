@@ -1,0 +1,199 @@
+_schema-version: "3.1"
+ID: capdispatches
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: capdispatches-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: capdispatches-db
+  - name: uaa_capdispatches
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm-ci
+- name: capdispatches-db-deployer
+  type: hdb
+  path: db
+  requires:
+  - name: uaa_capdispatches
+  - name: capdispatches-db
+    properties:
+      TARGET_CONTAINER: capdispatches-db
+  parameters:
+    build-parameters:
+      ignore:
+      - default-env.json
+      - .env
+    buildpack: nodejs_buildpack
+- name: capdispatches-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: capdispatches-destination-service
+    parameters:
+      content-target: true
+  - name: capdispatches_html_repo_host
+    parameters:
+      service-key:
+        name: capdispatches_html_repo_host-key
+  - name: uaa_capdispatches
+    parameters:
+      service-key:
+        name: uaa_capdispatches-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: dispatches_capdispatches_html_repo_host
+          ServiceInstanceName: capdispatches-html5-app-host-service
+          ServiceKeyName: capdispatches_html_repo_host-key
+          sap.cloud.service: dispatches
+        - Authentication: OAuth2UserTokenExchange
+          Name: dispatches_uaa_capdispatches
+          ServiceInstanceName: capdispatches-xsuaa-service
+          ServiceKeyName: uaa_capdispatches-key
+          sap.cloud.service: dispatches
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: capdispatches-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: capdispatches_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comdispatchesportaluidispatchesportal.zip
+      name: comdispatchesportaluidispatchesportal
+      target-path: resources/
+    - artifacts:
+      - comordersorders.zip
+      name: comordersorders
+      target-path: resources/
+    - artifacts:
+      - comcargoordermanagementcargoordermanagement.zip
+      name: comcargoordermanagementcargoordermanagement
+      target-path: resources/
+- name: comdispatchesportaluidispatchesportal
+  type: html5
+  path: app/uidispatchesportal
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comordersorders
+  type: html5
+  path: app/orders
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comcargoordermanagementcargoordermanagement
+  type: html5
+  path: app/cargoordermanagement
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: capdispatches-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+    services: hana
+  properties:
+    hdi-service-name: ${service-name}
+- name: uaa_capdispatches
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      role-collections:
+      - description: Manager Dispatches
+        name: dispatchesManager-${space}
+        role-template-references:
+        - $XSAPPNAME.dispatchesManager
+      - description: Create Dispatches
+        name: dispatchesCreate-${space}
+        role-template-references:
+        - $XSAPPNAME.dispatchesCreate
+      - description: Delete Dispatches
+        name: dispatchesDelete-${space}
+        role-template-references:
+        - $XSAPPNAME.dispatchesDelete
+      - description: Update Dispatches
+        name: dispatchesUpdate-${space}
+        role-template-references:
+        - $XSAPPNAME.dispatchesUpdate
+      - description: View Dispatches
+        name: dispatchesViewer-${space}
+        role-template-references:
+        - $XSAPPNAME.dispatchesViewer
+      tenant-mode: dedicated
+      xsappname: capdispatches-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: capdispatches-xsuaa-service
+    service-plan: application
+- name: capdispatches-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: capdispatches-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: capdispatches-destination-service
+    service-plan: lite
+  requires:
+  - name: srv-api
+- name: capdispatches_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: capdispatches-html5-app-host-service
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install --production
+    - npx -p @sap/cds-dk cds build --production
+    - npx rimraf gen/db/src/gen/data
+    - npx rimraf gen/db/src/gen/csv

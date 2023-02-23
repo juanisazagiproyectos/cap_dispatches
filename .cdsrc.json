@@ -1,0 +1,25 @@
+{
+    "[development]": {
+        "auth": {
+            "passport": {
+                "strategy": "mock",
+                "users": {
+                    "manager@tester.com": {
+                        "password": "initial",
+                        "ID": "manager@tester.com",
+                        "roles": [
+                            "dispatchesManager"
+                        ]
+                    },
+                    "viewer@tester.com": {
+                        "password": "initial",
+                        "ID": "viewer@tester.com",
+                        "roles": [
+                            "dispatchesViewer"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

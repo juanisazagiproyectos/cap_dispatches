@@ -1,0 +1,372 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:layout="sap.ui.commons.layout"
+    xmlns:dropdown="sap.ui.commons"
+    controllerName="com.orders.orders.controller.DetailCreate"
+>
+    <uxap:ObjectPageLayout id="idObjectPageLayout01" showTitleInHeaderContent="true" showHeaderContent="true" showAnchorBar="true" showFooter="true" subSectionLayout="TitleOnTop">
+        <uxap:headerContent>
+            <Label id="idTextDate" design="Standard" width="100%" required="false" textAlign="Initial" textDirection="Inherit" visible="true" />
+        </uxap:headerContent>
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader id="idObjectPageHeader_01" objectTitle="{i18n>Order_Cargo}" objectSubtitle="{order_id}" objectImageShape="Square" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false" isActionAreaAlwaysVisible="true">
+                <uxap:actions>
+                    <Button id="saveButton" icon="sap-icon://save" text="Save" press="onCreate" />
+                </uxap:actions>
+                <uxap:navigationBar />
+            </uxap:ObjectPageHeader>
+        </uxap:headerTitle>
+        <uxap:sections>
+            <uxap:ObjectPageSection id="idObjectPageSection_Dispatch" showTitle="true" title="Page Section Title" titleUppercase="true" visible="true">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="idObjectPageSubSection_Dispatch" title="{i18n>Dispatch}" mode="Collapsed">
+                        <uxap:blocks>
+                            <form:Form id="idForm_Dispatch" width="400px" editable="true" visible="true">
+                                <form:title>
+                                    <core:Title id="idTitle_Cargo" text="{i18n>Cargo}" level="Auto" />
+                                </form:title>
+                                <form:formContainers>
+                                    <form:FormContainer id="idFormContainer_CargoDate" visible="true">
+                                        <form:formElements>
+                                            <form:FormElement id="idFormElement_CargoDate" visible="true">
+                                                <form:fields>
+                                                    <Label id="idLabel_CargoDate" text="{i18n>Cargo_date}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                    <DatePicker id="idCargoDate" placeholder="{i18n>enterDate}" change="cargoDateChange" valueStateText="{i18n>InvalidEntry}" required="true" class="sapUiSmallMarginBottom" showFooter="true" valueFormat="YYYY-MM-dd" liveChange="onChange" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title />
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout id="idResponsiveGridLayoutCargoDate" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                </form:layout>
+                            </form:Form>
+                            <form:Form id="idForm_Route" width="400px" editable="true" visible="true">
+                                <form:title>
+                                    <core:Title id="idTitle_Route" text="{i18n>Route}" level="Auto" />
+                                </form:title>
+                                <form:formContainers>
+                                    <form:FormContainer id="idFormContainer_Department" visible="true">
+                                        <form:formElements>
+                                            <form:FormElement id="idFormElement_Department" visible="true">
+                                                <form:label>
+                                                    <Label id="idLabel_Department" text="{i18n>Department}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <ComboBox
+                                                        id="_IDGenComboBox1"
+                                                        change="onCity"
+                                                        items="{                                                             
+                                                        path: '/ListModelDepartment',                                                             
+                                                        sorter: { path: 'description' }                                                         
+                                                        }"
+                                                    >
+                                                        <core:Item id="_IDGenItem1" key="{code}" text="{description}" />
+                                                    </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement id="_IDGenFormElement1" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel1" text="{i18n>City}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <ComboBox
+                                                        id="_IDGenComboBox2"
+                                                         visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp; ${incidenceModel>CreationDate} !== undefined}"
+                                                        items="{path: '/ListModelCity',
+                                                                sorter: { path: 'description' }                                                                                                                  
+                                                                    }"
+                                                    >
+                                                        <core:Item id="_IDGenItem2" key="{code}" text="{description}" />
+                                                    </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title />
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout1" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                </form:layout>
+                            </form:Form>
+                        </uxap:blocks>
+                        <uxap:moreBlocks />
+                        <uxap:actions />
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+                <uxap:customAnchorBarButton />
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection id="_IDGenObjectPageSection1" showTitle="true" title="Page Section Title" titleUppercase="true" visible="true">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection1" title="{i18n>Vehicle}" mode="Expanded">
+                        <uxap:blocks>
+                            <form:Form id="_IDGenForm1" width="400px" editable="true" visible="true">
+                                <form:title />
+                                <form:formContainers>
+                                    <form:FormContainer id="_IDGenFormContainer1" visible="true">
+                                        <form:formElements>
+                                            <form:FormElement id="_IDGenFormElement2" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel2" text="{i18n>Vehicle_plate}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input id="idVehiclePlate" type="Text" liveChange="onChange" showValueHelp="true" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="true" valueStateText="{i18n>InvalidEntry}" maxLength="0" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title />
+                                    </form:FormContainer>
+                                    <form:FormContainer id="_IDGenFormContainer2" visible="true">
+                                        <form:formElements>
+                                            <form:FormElement id="_IDGenFormElement3" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel3" text="{i18n>Trailer}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input id="idTrailer" liveChange="onChange" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="true" valueStateText="{i18n>InvalidEntry}" maxLength="0" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title />
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout2" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                </form:layout>
+                            </form:Form>
+                            <form:Form id="_IDGenForm2" width="100%" editable="true" visible="true">
+                                <form:title />
+                                <form:formContainers>
+                                    <form:FormContainer id="_IDGenFormContainer3" visible="true">
+                                        <form:formElements>
+                                            <form:FormElement id="_IDGenFormElement4" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel4" text="{i18n>Capacity}" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input id="idCapacity" liveChange="onChange" type="Number" showValueHelp="false" placeholder="{i18n>UMforCapacity}" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="true" valueStateText="{i18n>InvalidEntry}" maxLength="0" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title />
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout3" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                </form:layout>
+                            </form:Form>
+                        </uxap:blocks>
+                        <uxap:moreBlocks />
+                        <uxap:actions />
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+                <uxap:customAnchorBarButton />
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection id="_IDGenObjectPageSection2" showTitle="true" title="Page Section Title" titleUppercase="true" visible="true">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection2" title="{i18n>Driver}" mode="Expanded">
+                        <uxap:blocks>
+                            <form:Form id="_IDGenForm3" width="400px" editable="true" visible="true">
+                                <form:title>
+                                    <core:Title id="_IDGenTitle1" text="{i18n>Personal_information}" level="Auto" />
+                                </form:title>
+                                <form:formContainers>
+                                    <form:FormContainer id="_IDGenFormContainer4" visible="true">
+                                        <form:formElements>
+                                            <form:FormElement id="_IDGenFormElement5" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel5" text="{i18n>ID_Card}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <MaskInput id="idCard" liveChange="onChange" mask="9999999999" placeholderSymbol="_" showClearIcon="true" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement id="_IDGenFormElement6" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel6" text="{i18n>Driver_name}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input id="idDriverName" value="{driver_name}" liveChange="onChange" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="true" valueStateText="{i18n>InvalidEntry}" maxLength="0" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement id="_IDGenFormElement7" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel7" text="{i18n>Driver_last_name}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input id="idDriverLastName" liveChange="onChange" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="true" valueStateText="{i18n>InvalidEntry}" maxLength="0" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement id="_IDGenFormElement8" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel8" text="{i18n>Cell_phone_number}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <MaskInput liveChange="onChange" id="idCellPhoneNumber" mask="999-999-9999" placeholderSymbol="_" placeholder="{i18n>enterPhoneNumber}" showClearIcon="true" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement id="_IDGenFormElement9" visible="true">
+                                                <form:label>
+                                                    <Label id="_IDGenLabel9" text="{i18n>Driving_license}" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                                </form:label>
+                                                <form:fields>
+                                                    <MaskInput liveChange="onChange" id="idDrivingLicense" mask="9999999999" placeholderSymbol="_" showClearIcon="true" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title />
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout4" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                </form:layout>
+                            </form:Form>
+                            <ScrollContainer id="_IDGenScrollContainer1" horizontal="true" vertical="true" width="100%" height="467.00000000px" visible="true">
+                                <content>
+                                    <form:Form id="_IDGenForm4" width="100%" editable="true" visible="true">
+                                        <form:title>
+                                            <core:Title id="_IDGenTitle2" text="{i18n>Driver_photo}" level="Auto" />
+                                        </form:title>
+                                        <form:formContainers>
+                                            <form:FormContainer id="_IDGenFormContainer5" visible="true">
+                                                <form:formElements>
+                                                    <form:FormElement id="_IDGenFormElement10" visible="true">
+                                                        <Image id="idImage_DriverPhoto" src="{driver_photo}" height="100px" width="100px" visible="true" densityAware="false" />
+                                                    </form:FormElement>
+                                                </form:formElements>
+                                            </form:FormContainer>
+                                        </form:formContainers>
+                                        <form:layout>
+                                            <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout5" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                        </form:layout>
+                                    </form:Form>
+                                    <FormattedText
+                                        id="idFormattedText_Photo01"
+                                        htmlText="{i18n>TextPhoto1} &lt;ul&gt;&lt;li&gt;{i18n>TextPhoto5}&lt;/li&gt;&lt;li&gt;{i18n>TextPhoto2}&lt;/li&gt;&lt;li&gt;{i18n>TextPhoto3}&lt;/li&gt;&lt;li&gt;{i18n>TextPhoto4}&lt;/li&gt;&lt;/ul&gt;"
+                                        width="auto"
+                                        visible="true"
+                                    />
+                                    <!-- <Button id="photoCreate" type="Emphasized" text="{i18n>Upload}" icon="sap-icon://upload" press="pressCreate('Photo')" /> -->
+                                    <u:FileUploader id="photoFileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="jpg" icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload" buttonText="Upload" maximumFileSize="20000" />
+                                    <Button id="photoDelete" type="Neutral" visible="false" text="{i18n>Delete}" icon="sap-icon://delete" press="pressDelete" />
+                                </content>
+                            </ScrollContainer>
+                        </uxap:blocks>
+                        <uxap:moreBlocks />
+                        <uxap:actions />
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+                <uxap:customAnchorBarButton />
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection id="_IDGenObjectPageSection3" showTitle="true" title="Page Section Title" titleUppercase="true" visible="true">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection3" title="{i18n>Documents}" mode="Expanded">
+                        <uxap:blocks>
+                            <ScrollContainer id="_IDGenScrollContainer2" horizontal="true" vertical="true" width="100%" height="467.00000000px" visible="true">
+                                <content>
+                                    <form:Form id="_IDGenForm5" width="100%" editable="true" visible="true">
+                                        <form:title>
+                                            <core:Title id="_IDGenTitle3" text="{i18n>PDF_ID_Card}" level="Auto" />
+                                        </form:title>
+                                        <form:formContainers>
+                                            <form:FormContainer id="_IDGenFormContainer6" visible="true">
+                                                <form:formElements>
+                                                    <form:FormElement id="_IDGenFormElement11" visible="true" />
+                                                </form:formElements>
+                                            </form:FormContainer>
+                                        </form:formContainers>
+                                        <form:layout>
+                                            <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout6" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                        </form:layout>
+                                    </form:Form>
+                                    <ImageContent id="idImageContent_PdfIdCard" class="sapUiLargeMarginTop sapUiLargeMarginBottom" src="sap-icon://pdf-attachment" description="{pdf_id_card}" press="press" />
+                                    <!-- <Button id="pdfIDCardCreate" type="Emphasized" text="{i18n>Upload}" icon="sap-icon://upload" press="pressCreate('IDCard')" /> -->
+                                    <u:FileUploader id="idCardFileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="pdf" icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload" buttonText="Upload" maximumFileSize="2000" />
+                                    <Button id="pdfIDCardDelete" type="Neutral" visible="false" text="{i18n>Delete}" icon="sap-icon://delete" press="pressDelete" />
+                                </content>
+                            </ScrollContainer>
+                            <ScrollContainer id="_IDGenScrollContainer3" horizontal="true" vertical="true" width="100%" height="467.00000000px" visible="true">
+                                <content>
+                                    <form:Form id="_IDGenForm6" width="100%" editable="true" visible="true">
+                                        <form:title>
+                                            <core:Title id="_IDGenTitle4" text="{i18n>PDF_license}" level="Auto" />
+                                        </form:title>
+                                        <form:formContainers>
+                                            <form:FormContainer id="_IDGenFormContainer7" visible="true">
+                                                <form:formElements>
+                                                    <form:FormElement id="_IDGenFormElement12" visible="true" />
+                                                </form:formElements>
+                                            </form:FormContainer>
+                                        </form:formContainers>
+                                        <form:layout>
+                                            <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout7" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                        </form:layout>
+                                    </form:Form>
+                                    <ImageContent id="idImageContent_PdfLicense" class="sapUiLargeMarginTop sapUiLargeMarginBottom" src="sap-icon://pdf-attachment" description="{PDF_license}" press="pressDownload" />
+                                    <!-- <Button id="pdfLicenseCreate" type="Emphasized" text="{i18n>Upload}" icon="sap-icon://upload" press="pressCreate('license')" /> -->
+                                    <u:FileUploader id="licenseFileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="pdf" icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload" buttonText="Upload" maximumFileSize="2000" />
+                                    <Button id="pdfLicenseDelete" type="Neutral" visible="false" text="{i18n>Delete}" icon="sap-icon://delete" press="pressDelete" />
+                                </content>
+                            </ScrollContainer>
+                            <ScrollContainer id="idScrollContainer_PdfSS" horizontal="true" vertical="true" width="100%" height="467.00000000px" visible="true">
+                                <content>
+                                    <form:Form id="idForm_PdfSS" width="100%" editable="true" visible="true">
+                                        <form:title>
+                                            <core:Title id="idTitle_PdfSS" text="{i18n>PDF_social_security}" level="Auto" />
+                                        </form:title>
+                                        <form:formContainers>
+                                            <form:FormContainer id="idFormContainer_PdfSS" visible="true">
+                                                <form:formElements>
+                                                    <form:FormElement id="idFormElement_PdfSS" visible="true" />
+                                                </form:formElements>
+                                            </form:FormContainer>
+                                        </form:formContainers>
+                                        <form:layout>
+                                            <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout8" adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                                        </form:layout>
+                                    </form:Form>
+                                    <ImageContent id="idImageContent_PdfSS" class="sapUiLargeMarginTop sapUiLargeMarginBottom" src="sap-icon://pdf-attachment" description="{PDF_social_security}" press="press" />
+                                    <!-- <Button id="pdfSsCreate" text="{i18n>Upload}" icon="sap-icon://upload" press="pressCreate('SS')" type="Emphasized" /> -->
+                                    <u:FileUploader id="ssFileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="pdf" icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload" buttonText="Upload" maximumFileSize="2000" />
+                                    <Button id="pdfSsDelete" type="Neutral" visible="false" text="{i18n>Delete}" icon="sap-icon://delete" press="pressDelete" />
+                                </content>
+                            </ScrollContainer>
+                        </uxap:blocks>
+                        <uxap:moreBlocks />
+                        <uxap:actions />
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+                <uxap:customAnchorBarButton />
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection id="idObjectPageSection_Remarks" showTitle="true" title="Page Section Title" titleUppercase="true" visible="true">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="idObjectPageSubSection_Remarks" title="{i18n>Remarks}" mode="Collapsed">
+                        <uxap:blocks>
+                            <TextArea id="idTextAreaRemarks" placeholder="{i18n>enterRemarks}" rows="6" maxLength="255" width="100%" />
+                        </uxap:blocks>
+                        <uxap:moreBlocks />
+                        <uxap:actions />
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+                <uxap:customAnchorBarButton />
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar id="idOverflowToolbar_01" width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <content>
+                    <ToolbarSpacer id="idToolbarSpacer_01" width="" />
+                    <Button id="idButton_Cancel" text="{i18n>Cancel}" type="Reject" icon="sap-icon://sys-cancel-2" iconFirst="true" width="auto" enabled="true" visible="true" tooltip="" iconDensityAware="false" press="onCancel" />
+                </content>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>
