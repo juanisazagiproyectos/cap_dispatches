@@ -33,14 +33,16 @@ service CatalogService {
     //     }
     // ]) as projection on dispatches.CargoOrders;
 
-    entity CargoOrders    as projection on dispatches.CargoOrders;
+    entity CargoOrders             as projection on dispatches.CargoOrders;
     annotate CargoOrders with @odata.draft.enabled;
-    entity Department     as projection on dispatches.Department;
+    entity Department              as projection on dispatches.Department;
     annotate Department with @odata.draft.enabled;
-    entity City           as projection on dispatches.City;
+    entity City                    as projection on dispatches.City;
     annotate City with @odata.draft.enabled;
-    entity ManagementApps as projection on dispatches.ManagementApps;
+    entity ManagementApps          as projection on dispatches.ManagementApps;
     annotate ManagementApps with @odata.draft.enabled;
-    entity OrdersManagement    as projection on dispatches.CargoOrders;
+    entity OrdersManagement        as projection on dispatches.CargoOrders;
     annotate OrdersManagement with @odata.draft.enabled;
+    entity VehiculeSecurityReview as projection on dispatches.CargoOrders;
+    annotate VehiculeSecurityReview with @odata.draft.enabled;
 }
