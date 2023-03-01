@@ -32,7 +32,7 @@ module.exports = cds.service.impl(async (service) => {
 	service.before("CREATE", CargoOrders, async (context) => {
 		const orderid = new SequenceHelper({
 			db: db,
-			sequence: "ORDER_ID",
+			sequence: "ORDERID",
 			table: "COM_DISPATCHES_CARGOORDERS",
 			field: "order_id"
 		});

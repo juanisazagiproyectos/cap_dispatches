@@ -84,6 +84,9 @@
       "db": {
         "kind": "sql"
       }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
   },
   "sapux": [
