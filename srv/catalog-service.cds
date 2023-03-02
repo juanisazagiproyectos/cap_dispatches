@@ -45,6 +45,8 @@ service CatalogService {
     annotate ManagementApps with @odata.draft.enabled;
     entity OrdersManagement       as projection on dispatches.CargoOrders;
     annotate OrdersManagement with @odata.draft.enabled;
-    entity VehiculeSecurityReview as projection on dispatches.CargoOrders;
-    annotate VehiculeSecurityReview with @odata.draft.enabled;
+    entity VehicleEntrySecurityCheck as projection on dispatches.CargoOrders;
+    annotate VehicleEntrySecurityCheck with @odata.draft.enabled;
+    entity VehicleExitSecurityCheck as projection on dispatches.CargoOrders;
+    annotate VehicleExitSecurityCheck with @odata.draft.enabled;
 }

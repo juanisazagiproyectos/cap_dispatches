@@ -18,17 +18,6 @@ entity CargoOrders : managed {
         driver_last_name            : String(50);
         cell_phone_number           : String(12);
         driving_license             : String(10);
-
-
-        // @Core.MediaType   : mediaTypeDriver_photo
-        // driver_photo                : LargeBinary;
-        // @Core.IsMediaType : true
-        // mediaTypeDriver_photo       : String;
-        // fileNameDriver_photo        : String;
-        // applicationNameDriver_photo : String;
-        // driver_photo        : LargeBinary @Core.MediaType : 'image/jpg';
-        // driver_photo        : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : 'fileName.jpg';
-
         driver_photo                : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameDriver_photo         @Core.ContentDisposition.Type : 'inline';
         fileNameDriver_photo        : String;
         pdf_id_card                 : LargeBinary  @Core.MediaType : 'file/pdf'  @Core.ContentDisposition.Filename : fileNamePdf_id_card          @Core.ContentDisposition.Type : 'inline';
@@ -54,15 +43,17 @@ entity City : managed {
 };
 
 entity Driver : managed {
-    key id_card             : String(10);
-        driver_name         : String(50);
-        driver_last_name    : String(50);
-        cell_phone_number   : Integer;
-        driving_license     : String(10);
-        driver_photo        : String(200);
-        pdf_id_card         : String(200);
-        pdf_license         : String(200);
-        pdf_social_security : String(200);
+    key id_card              : String(10);
+        driver_name          : String(50);
+        driver_last_name     : String(50);
+        cell_phone_number    : Integer;
+        driving_license      : String(10);
+        driver_photo         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameDriver_photo  @Core.ContentDisposition.Type : 'inline';
+        fileNameDriver_photo : String;
+        pdf_id_card          : LargeBinary  @Core.MediaType : 'file/pdf'  @Core.ContentDisposition.Filename : fileNamePdf_id_card   @Core.ContentDisposition.Type : 'inline';
+        fileNamePdf_id_card  : String;
+        pdf_license          : LargeBinary  @Core.MediaType : 'file/pdf'  @Core.ContentDisposition.Filename : fileNamePdf_license   @Core.ContentDisposition.Type : 'inline';
+        fileNamePdf_license  : String;
 };
 
 entity Vehicle : managed {
@@ -78,6 +69,29 @@ entity ManagementApps : managed {
         Text02      : String;
 };
 
+
+entity VehicleEntrySecurityCheck : managed {
+    key order_id             : Integer;
+        status_order         : String(10);
+        status_indicator     : String(50);
+        vehicle_cabin        : Boolean;
+        vehicle_engine       : Boolean;
+        vehicle_body         : Boolean;
+        scale_ticket         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket  @Core.ContentDisposition.Type : 'inline';
+        fileNameScale_ticket : String;
+}
+
+entity VehicleExitSecurityCheck : managed {
+    key order_id             : Integer;
+        status_order         : String(10);
+        status_indicator     : String(50);
+        vehicle_cabin        : Boolean;
+        vehicle_engine       : Boolean;
+        vehicle_body         : Boolean;
+        scale_ticket         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket  @Core.ContentDisposition.Type : 'inline';
+        fileNameScale_ticket : String;
+}
+
 entity MediaFile {
     key id        : Integer;
         @Core.MediaType   : mediaType
@@ -86,4 +100,161 @@ entity MediaFile {
         mediaType : String;
         fileName  : String;
         url       : String;
+};
+
+entity Shift : managed {
+    key ID          : UUID @(Core.Computed : true);
+        description : String;
+}
+
+entity BigBagNationalCargo : managed {
+    key ID                        : UUID @(Core.Computed : true);
+    key order                     : Association to CargoOrders;
+        status                    : String(10);
+        status_indicator          : String(50);
+        shift                     : Association to Shift;
+        image01                   : String(1);
+        image02                   : String(1);
+        image03                   : String(1);
+        image04                   : String(1);
+        image05                   : String(1);
+        image06                   : String(1);
+        answer01                  : String(1);
+        answer02                  : String(1);
+        answer03                  : String(1);
+        answer04                  : String(1);
+        answer05                  : String(1);
+        answer06                  : String(1);
+        answer07                  : String(1);
+        answer08                  : String(1);
+        answer09                  : String(1);
+        answer10                  : String(1);
+        driver_signature          : String(50);
+        driver_signature_date     : DateTime;
+        auxiliary_signature       : String(50);
+        auxiliary_signature_date  : DateTime;
+        supervisor_signature      : String(50);
+        supervisor_signature_date : DateTime;
+        remarks                   : LargeString;
+};
+
+entity LooseBagNationalCargo : managed {
+    key ID                        : UUID @(Core.Computed : true);
+    key order                     : Association to CargoOrders;
+        status                    : String(10);
+        status_indicator          : String(50);
+        shift                     : Association to Shift;
+        image01                   : String(1);
+        image02                   : String(1);
+        image03                   : String(1);
+        image04                   : String(1);
+        image05                   : String(1);
+        image06                   : String(1);
+        answer01                  : String(1);
+        answer02                  : String(1);
+        answer03                  : String(1);
+        answer04                  : String(1);
+        answer05                  : String(1);
+        answer06                  : String(1);
+        answer07                  : String(1);
+        answer08                  : String(1);
+        answer09                  : String(1);
+        answer10                  : String(1);
+        driver_signature          : String(50);
+        driver_signature_date     : DateTime;
+        auxiliary_signature       : String(50);
+        auxiliary_signature_date  : DateTime;
+        supervisor_signature      : String(50);
+        supervisor_signature_date : DateTime;
+        remarks                   : LargeString;
+};
+
+entity Deliver_documents : managed {
+    key ID                        : UUID @(Core.Computed : true);
+    key order                     : Association to CargoOrders;
+        status                    : String(10);
+        status_indicator          : String(50);
+        shift                     : Association to Shift;
+        remission                 : String(50);
+        quality_certificate       : String(1);
+        invoice                   : String(1);
+        import_declaration        : String(1);
+        driver_signature          : String(50);
+        driver_signature_date     : DateTime;
+        auxiliary_signature       : String(50);
+        auxiliary_signature_date  : DateTime;
+        supervisor_signature      : String(50);
+        supervisor_signature_date : DateTime;
+        remarks                   : LargeString;
+};
+
+entity Authorization_Leave : managed {
+    key ID                        : UUID @(Core.Computed : true);
+    key order                     : Association to CargoOrders;
+        status                    : String(10);
+        status_indicator          : String(50);
+        shift                     : Association to Shift;
+        driver_signature          : String(50);
+        driver_signature_date     : DateTime;
+        auxiliary_signature       : String(50);
+        auxiliary_signature_date  : DateTime;
+        supervisor_signature      : String(50);
+        supervisor_signature_date : DateTime;
+        remarks                   : LargeString;
+};
+
+entity SAP_Transport_Order : managed {
+    key ID                        : UUID @(Core.Computed : true);
+    key order                     : Association to CargoOrders;
+        status                    : String(10);
+        status_indicator          : String(50);
+        shift                     : Association to Shift;
+        driver_signature          : String(50);
+        driver_signature_date     : DateTime;
+        auxiliary_signature       : String(50);
+        auxiliary_signature_date  : DateTime;
+        supervisor_signature      : String(50);
+        supervisor_signature_date : DateTime;
+        remarks                   : LargeString;
+};
+
+entity NationalCargo : managed {
+    key ID                        : UUID @(Core.Computed : true);
+    key order                     : Association to CargoOrders;
+        status                    : String(10);
+        status_indicator          : String(50);
+        shift                     : Association to Shift;
+        product                   : String(10);
+        item                      : String(4);
+        batch                     : String(10);
+        kg                        : String(10);
+        numero                    : String(10);
+        answer01                  : String(1);
+        answer02                  : String(1);
+        answer03                  : String(1);
+        answer04                  : String(1);
+        answer05                  : String(1);
+        answer06                  : String(1);
+        answer07                  : String(1);
+        answer08                  : String(1);
+        answer09                  : String(1);
+        answer10                  : String(1);
+        answer11                  : String(1);
+        answer12                  : String(1);
+        answer13                  : String(1);
+        answer14                  : String(1);
+        answer15                  : String(1);
+        forklift_signature        : String(50);
+        forklift_signature_date   : DateTime;
+        auxiliary_signature       : String(50);
+        auxiliary_signature_date  : DateTime;
+        supervisor_signature      : String(50);
+        supervisor_signature_date : DateTime;
+        remarks                   : LargeString;
+};
+
+entity ConsecutiveId : managed {
+    key ID      : Integer;
+        num_min : Integer;
+        num_max : Integer;
 };
