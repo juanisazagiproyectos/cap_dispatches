@@ -41,4 +41,15 @@ module.exports = cds.service.impl(async (service) => {
 	});
 });
 
+module.exports = async (srv) => {
+	const { CargoOrders } = srv.entities;
+	srv.on("approveAction", async req => {
+		return req.notify(`The order is approved`);
+    });
+
+	srv.on("rejectAction", async req => {
+		return req.info(`NOTE: ${req.data.input}`);
+    });
+}
+
 

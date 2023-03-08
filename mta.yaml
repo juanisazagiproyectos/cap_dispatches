@@ -76,26 +76,12 @@ modules:
       name: comdispatchesportaluidispatchesportal
       target-path: resources/
     - artifacts:
-      - comordersorders.zip
-      name: comordersorders
-      target-path: resources/
-    - artifacts:
       - comcargoordermanagementcargoordermanagement.zip
       name: comcargoordermanagementcargoordermanagement
       target-path: resources/
 - name: comdispatchesportaluidispatchesportal
   type: html5
   path: app/uidispatchesportal
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comordersorders
-  type: html5
-  path: app/orders
   build-parameters:
     build-result: dist
     builder: custom

@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Text
+        text="{
+            path: 'order_id',
+            type: 'any',
+            formatter: 'handler.keepOnlyNumericCharacters'
+        }"
+        core:require="{handler: 'com/cargoordermanagement/cargoordermanagement/ext/NumberToUnformattedString'}"/>
+</core:FragmentDefinition>

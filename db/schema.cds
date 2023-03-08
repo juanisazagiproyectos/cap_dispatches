@@ -2,9 +2,12 @@ namespace com.dispatches;
 
 using {managed} from '@sap/cds/common';
 
-entity CargoOrders : managed {
+entity CargoOrders                                 @(cds.autoexpose) : managed {
     key ID                          : UUID         @(Core.Computed : true);
-        order_id                    : Integer;
+        order_id                    : Integer      @assert.range   : [
+            0000000001,
+            9999999999
+        ];
         status_order                : String(10);
         status_indicator            : String(50);
         cargo_date                  : Date;
@@ -29,6 +32,16 @@ entity CargoOrders : managed {
         sap_order                   : String(10);
         remarks                     : LargeString;
         remarksOrdersManagement     : LargeString;
+        vehicle_cabin_in            : Boolean;
+        vehicle_engine_in           : Boolean;
+        vehicle_body_in             : Boolean;
+        scale_ticket_in             : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket_in      @Core.ContentDisposition.Type : 'inline';
+        fileNameScale_ticket_in     : String;
+        vehicle_cabin_out           : Boolean;
+        vehicle_engine_out          : Boolean;
+        vehicle_body_out            : Boolean;
+        scale_ticket_out            : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket_out     @Core.ContentDisposition.Type : 'inline';
+        fileNameScale_ticket_out    : String;
 };
 
 entity Department : managed {
@@ -70,27 +83,27 @@ entity ManagementApps : managed {
 };
 
 
-entity VehicleEntrySecurityCheck : managed {
-    key order_id             : Integer;
-        status_order         : String(10);
-        status_indicator     : String(50);
-        vehicle_cabin        : Boolean;
-        vehicle_engine       : Boolean;
-        vehicle_body         : Boolean;
-        scale_ticket         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket  @Core.ContentDisposition.Type : 'inline';
-        fileNameScale_ticket : String;
-}
+// entity VehicleEntrySecurityCheck : managed {
+//     key order_id             : Integer;
+//         status_order         : String(10);
+//         status_indicator     : String(50);
+//         vehicle_cabin        : Boolean;
+//         vehicle_engine       : Boolean;
+//         vehicle_body         : Boolean;
+//         scale_ticket         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket  @Core.ContentDisposition.Type : 'inline';
+//         fileNameScale_ticket : String;
+// }
 
-entity VehicleExitSecurityCheck : managed {
-    key order_id             : Integer;
-        status_order         : String(10);
-        status_indicator     : String(50);
-        vehicle_cabin        : Boolean;
-        vehicle_engine       : Boolean;
-        vehicle_body         : Boolean;
-        scale_ticket         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket  @Core.ContentDisposition.Type : 'inline';
-        fileNameScale_ticket : String;
-}
+// entity VehicleExitSecurityCheck : managed {
+//     key order_id             : Integer;
+//         status_order         : String(10);
+//         status_indicator     : String(50);
+//         vehicle_cabin        : Boolean;
+//         vehicle_engine       : Boolean;
+//         vehicle_body         : Boolean;
+//         scale_ticket         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket  @Core.ContentDisposition.Type : 'inline';
+//         fileNameScale_ticket : String;
+// }
 
 entity MediaFile {
     key id        : Integer;

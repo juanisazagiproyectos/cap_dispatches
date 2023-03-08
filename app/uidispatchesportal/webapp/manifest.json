@@ -133,6 +133,26 @@
                                         "route": "CargoOrdersObjectPage"
                                     }
                                 }
+                            },
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "order_id": {
+                                            "header": "{{Order}}",
+                                            "template": "com.dispatchesportal.uidispatchesportal.ext.orderidColumn",
+                                            "properties": [
+                                                "order_id"
+                                            ],
+                                            "availability": "Default",
+                                            "horizontalAlign": "Right",
+                                            "width": "auto",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "DataField::cargo_date"
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

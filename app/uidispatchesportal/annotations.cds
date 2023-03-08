@@ -1,8 +1,8 @@
 using CatalogService as service from '../../srv/catalog-service';
 
 annotate service.CargoOrders with {
-    order_id            @title : '{i18n>Order}'   @readonly;
-    status_order        @title : '{i18n>Status}'  @readonly;
+    order_id            @title : '{i18n>Order}'              @readonly;
+    status_order        @title : '{i18n>Status}'             @readonly;
     cargo_date          @title : '{i18n>Cargo_date}';
     department_route    @title : '{i18n>Department_route}';
     city_route          @title : '{i18n>City_route}';
@@ -12,13 +12,13 @@ annotate service.CargoOrders with {
     id_card             @title : '{i18n>ID Card} ';
     driver_name         @title : '{i18n>Driver_name}';
     driver_last_name    @title : '{i18n>Driver_last_name}';
-    cell_phone_number   @title : '{i18n>Cell_phone_number}';
+    cell_phone_number   @title : '{i18n>Cell_phone_number}'  @Communication.IsPhoneNumber;
     driving_license     @title : '{i18n>Driving_license}';
     pdf_id_card         @title : '{i18n>PDF_ID_Card}';
     driver_photo        @title : '{i18n>Driver_photo}';
     pdf_license         @title : '{i18n>PDF_license}';
     pdf_social_security @title : '{i18n>PDF_social_security}';
-    remarks             @UI.MultiLineText         @title : '{i18n>Remarks}';
+    remarks             @UI.MultiLineText                    @title : '{i18n>Remarks}';
 
 }
 
@@ -49,7 +49,7 @@ annotate service.CargoOrders with @(UI : {
                                   // IconUrl:'sap-icon://future'
                 },
 
-        {Value : order_id},
+        // {Value : order_id},
         {Value : cargo_date},
         // {Value : city_route},
         // {Value : department_route},

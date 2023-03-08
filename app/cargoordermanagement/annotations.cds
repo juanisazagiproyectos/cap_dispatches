@@ -12,7 +12,7 @@ annotate service.OrdersManagement with {
     id_card                  @title : '{i18n>ID Card} '             @readonly;
     driver_name              @title : '{i18n>Driver_name}'          @readonly;
     driver_last_name         @title : '{i18n>Driver_last_name}'     @readonly;
-    cell_phone_number        @title : '{i18n>Cell_phone_number}'    @readonly;
+    cell_phone_number        @title : '{i18n>Cell_phone_number}'    @readonly                  @Communication.IsPhoneNumber;
     driving_license          @title : '{i18n>Driving_license}'      @readonly;
     pdf_id_card              @title : '{i18n>PDF_ID_Card}'          @readonly;
     driver_photo             @title : '{i18n>Driver_photo}'         @readonly;
@@ -51,7 +51,7 @@ annotate service.OrdersManagement with @(UI : {
                                   // IconUrl:'sap-icon://future'
                 },
 
-        {Value : order_id},
+        // {Value : order_id},
         {Value : cargo_date},
         // {Value : city_route},
         // {Value : department_route},
@@ -110,7 +110,19 @@ annotate service.OrdersManagement with @(UI : {
 
     FieldGroup #Approval : {Data : [
         {Value : sap_order},
-        {Value : remarksOrdersManagement}
+        {Value : remarksOrdersManagement},
+        {
+            $Type             : 'UI.DataFieldForAction',
+            Action            : 'CatalogService.EntityContainer/approveAction',
+            Label             : '{i18n>Approve}',
+            ![@UI.Emphasized] : true,
+        },
+                {
+            $Type             : 'UI.DataFieldForAction',
+            Action            : 'CatalogService.EntityContainer/rejectAction',
+            Label             : '{i18n>Reject}',
+            ![@UI.Emphasized] : true,
+        }
     ]},
 
     Facets               : [
