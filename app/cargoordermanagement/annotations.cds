@@ -1,34 +1,5 @@
 using CatalogService as service from '../../srv/catalog-service';
 
-
-// annotate service.OrdersManagement with @(UI.LineItem : [
-//     {
-//         $Type : 'UI.DataField',
-//         Label : 'Status',
-//         Value : status_order.name,
-//     },
-//     {
-//         $Type : 'UI.DataField',
-//         Label : 'name',
-//         Value : cargo_date,
-//     },
-//     {
-//         $Type : 'UI.DataField',
-//         Label : 'description',
-//         Value : trailer,
-//     },
-//     {
-//         $Type : 'UI.DataField',
-//         Label : 'startDate',
-//         Value : capacity,
-//     },
-//     {
-//         $Type : 'UI.DataField',
-//         Label : 'endDate',
-//         Value : id_card,
-//     },
-// ]);
-
 annotate service.OrdersManagement with {
     order_id                 @title : '{i18n>Order}'                @readonly;
     status_order_code        @title : '{i18n>Status}'               @readonly;
@@ -48,7 +19,7 @@ annotate service.OrdersManagement with {
     pdf_license              @title : '{i18n>PDF_license}'          @readonly;
     pdf_social_security      @title : '{i18n>PDF_social_security}'  @readonly;
     remarks                  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
-    sap_order                @title : '{i18n>sap_order}';
+    sap_order                @title : '{i18n>sap_order}'            @mandatory;
     remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
 }
@@ -66,36 +37,21 @@ annotate service.OrdersManagement with @(UI : {
             $Type : 'UI.DataField',
             Value : status_order.name
         },
-        // Title          : {Value : order_id},
-        // Description    : {Value : cargo_date},
-        // ImageUrl       : status_indicator
-        ImageUrl :status_order.icon
+        ImageUrl       : status_order.icon
     },
+
     SelectionFields      : [status_order.name],
+
     LineItem             : [
-        // {
-        // $Type : 'UI.DataFieldWithUrl',
-        // Value : status_indicator,
-        // Url   : status_indicator,
-        // IconUrl:'sap-icon://future'
-        // },
-        {
-            $Type : 'UI.DataField',
-            Label : 'Name',
-            Value : status_order.ID
-        },
+        {Value : status_order.icon},
         {Value : status_order.name},
         {Value : cargo_date},
-        // {Value : city_route},
-        // {Value : department_route},
         {Value : vehicle_plate},
         {Value : trailer},
         {Value : capacity},
-        {Value : id_card
-                        // $Type : 'UI.DataFieldForAnnotation',
-                        // Target : 'Driver/@Communication.Contact'
-                 }
+        {Value : id_card}
     ],
+
     FieldGroup #Dispatch : {Data : [
         {Value : cargo_date},
         {Value : department_route_code},
@@ -118,25 +74,9 @@ annotate service.OrdersManagement with @(UI : {
 
     FieldGroup #Document : {Data : [
         {Value : driver_photo},
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_id_card
-
-                           // ,
-                           // Url   : pdf_id_card
-                },
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_license
-                           // ,
-                           // Url   : pdf_license
-                },
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_social_security
-                                   // ,
-                                   // Url   : pdf_social_security
-                }
+        {Value : pdf_id_card},
+        {Value : pdf_license},
+        {Value : pdf_social_security}
     ]},
 
     FieldGroup #Remarks  : {Data : [{Value : remarks}]},
@@ -216,8 +156,29 @@ annotate service.OrdersManagement with {
     });
 };
 
+
+//Help Value City
 annotate service.OrdersManagement with {
-    status_indicator @(UI.IsImageURL : true)
+    city_route @(Common : {
+        Text            : city_route.description,
+        TextArrangement : #TextOnly,
+        ValueList       : {
+            $Type          : 'Common.ValueListType',
+            Label          : '{i18n>city_route}',
+            CollectionPath : 'City',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : city_route_code,
+                    ValueListProperty : 'code'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'description'
+                }
+            ]
+        }
+    });
 };
 
 annotate service.OrdersManagement with @(Capabilities : {

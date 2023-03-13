@@ -19,8 +19,8 @@ annotate service.VehiculeSecurityReview with {
     pdf_license              @title : '{i18n>PDF_license}'          @readonly;
     pdf_social_security      @title : '{i18n>PDF_social_security}'  @readonly;
     remarks                  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
-    sap_order                @title : '{i18n>sap_order}' @readonly;
-    remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}' @readonly;
+    sap_order                @title : '{i18n>sap_order}'            @readonly;
+    remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
 
 }
 
@@ -29,42 +29,30 @@ annotate service.VehiculeSecurityReview with @(UI : {
     HeaderInfo           : {
         TypeName       : '{i18n>Order}',
         TypeNamePlural : '{i18n>Orders}',
-        // Title          : {
-        //     $Type : 'UI.DataField',
-        //     Value : order_id
-        // },
-        // Description    : {
-        //     $Type    : 'UI.DataField',
-        //     Value    : status_order
-        // }
-        Title          : {Value : order_id},
-        Description    : {Value : cargo_date},
-        // ImageUrl       : status_indicator
-        ImageUrl       : 'sap-icon://future'
+        Title          : {
+            $Type : 'UI.DataField',
+            Value : order_id
+        },
+        Description    : {
+            $Type : 'UI.DataField',
+            Value : status_order.name
+        },
+        ImageUrl       : status_order.icon
     },
-    SelectionFields      : [status_order],
-    LineItem             : [
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : status_indicator,
-                                  // Url   : status_indicator,
-                                  // IconUrl:'sap-icon://future'
-                },
 
-        {Value : order_id},
+    SelectionFields      : [status_order.name],
+
+    LineItem             : [
+        {Value : status_order.icon},
+        {Value : status_order.name},
         {Value : cargo_date},
-        // {Value : city_route},
-        // {Value : department_route},
         {Value : vehicle_plate},
         {Value : trailer},
         {Value : capacity},
-        {Value : id_card
-                        // $Type : 'UI.DataFieldForAnnotation',
-                        // Target : 'Driver/@Communication.Contact'
-                 }
+        {Value : id_card}
     ],
     FieldGroup #Dispatch : {Data : [
-        // {Value : cargo_date},
+        {Value : cargo_date},
         {Value : department_route_code},
         {Value : city_route_code}
     ]},
@@ -85,25 +73,9 @@ annotate service.VehiculeSecurityReview with @(UI : {
 
     FieldGroup #Document : {Data : [
         {Value : driver_photo},
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_id_card
-
-                           // ,
-                           // Url   : pdf_id_card
-                },
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_license
-                           // ,
-                           // Url   : pdf_license
-                },
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_social_security
-                                   // ,
-                                   // Url   : pdf_social_security
-                }
+        {Value : pdf_id_card},
+        {Value : pdf_license},
+        {Value : pdf_social_security}
     ]},
 
     FieldGroup #Remarks  : {Data : [{Value : remarks}]},
@@ -171,8 +143,28 @@ annotate service.VehiculeSecurityReview with {
     });
 };
 
-annotate service.VehiculeSecurityReview with {
-    status_indicator @(UI.IsImageURL : true)
+//Help Value City
+annotate service.OrdersManagement with {
+    city_route @(Common : {
+        Text            : city_route.description,
+        TextArrangement : #TextOnly,
+        ValueList       : {
+            $Type          : 'Common.ValueListType',
+            Label          : '{i18n>city_route}',
+            CollectionPath : 'City',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : city_route_code,
+                    ValueListProperty : 'code'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'description'
+                }
+            ]
+        }
+    });
 };
 
 annotate service.VehiculeSecurityReview with @(Capabilities : {

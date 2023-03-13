@@ -27,42 +27,30 @@ annotate service.CargoOrders with @(UI : {
     HeaderInfo           : {
         TypeName       : '{i18n>Order}',
         TypeNamePlural : '{i18n>Orders}',
-        // Title          : {
-        //     $Type : 'UI.DataField',
-        //     Value : order_id
-        // },
-        // Description    : {
-        //     $Type    : 'UI.DataField',
-        //     Value    : status_order
-        // }
-        Title          : {Value : order_id},
-        Description    : {Value : cargo_date},
-        // ImageUrl       : status_indicator
-        ImageUrl       : 'sap-icon://future'
+        Title          : {
+            $Type : 'UI.DataField',
+            Value : order_id
+        },
+        Description    : {
+            $Type : 'UI.DataField',
+            Value : status_order.name
+        },
+        ImageUrl       : status_order.icon
     },
-    SelectionFields      : [status_order],
-    LineItem             : [
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : status_indicator,
-                                  // Url   : status_indicator,
-                                  // IconUrl:'sap-icon://future'
-                },
 
-        // {Value : order_id},
+    SelectionFields      : [status_order.name],
+
+    LineItem             : [
+        {Value : status_order.icon},
+        {Value : status_order.name},
         {Value : cargo_date},
-        // {Value : city_route},
-        // {Value : department_route},
         {Value : vehicle_plate},
         {Value : trailer},
         {Value : capacity},
-        {Value : id_card
-                        // $Type : 'UI.DataFieldForAnnotation',
-                        // Target : 'Driver/@Communication.Contact'
-                 }
+        {Value : id_card}
     ],
     FieldGroup #Dispatch : {Data : [
-        // {Value : cargo_date},
+        {Value : cargo_date},
         {Value : department_route_code},
         {Value : city_route_code}
     ]},
@@ -83,25 +71,9 @@ annotate service.CargoOrders with @(UI : {
 
     FieldGroup #Document : {Data : [
         {Value : driver_photo},
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_id_card
-
-                           // ,
-                           // Url   : pdf_id_card
-                },
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_license
-                           // ,
-                           // Url   : pdf_license
-                },
-        {
-        // $Type : 'UI.DataFieldWithUrl',
-        Value : pdf_social_security
-                                   // ,
-                                   // Url   : pdf_social_security
-                }
+        {Value : pdf_id_card},
+        {Value : pdf_license},
+        {Value : pdf_social_security}
     ]},
 
     FieldGroup #Remarks  : {Data : [{Value : remarks}]},
@@ -240,49 +212,3 @@ annotate service.City with {
     );
     description @(UI : {HiddenFilter : true});
 };
-
-// annotate service.CargoOrders with {
-//     @Common.Text    : '{mediaTypeDriver_photo}'
-//     @Core.IsURL     : true
-//     @Core.MediaType : 'image/jpg'
-//     mediaTypeDriver_photo
-// };
-
-// annotate service.CargoOrders with {
-//     @Common.Text    : '{pdf_id_card}'
-//     @Core.IsURL     : true
-//     @Core.MediaType : 'file/pdf'
-//     pdf_id_card
-// };
-
-// annotate service.CargoOrders with {
-//     @Common.Text    : '{pdf_social_security}'
-//     @Core.IsURL     : true
-//     @Core.MediaType : 'file/pdf'
-//     pdf_license
-// };
-
-// annotate service.CargoOrders with {
-//     @Common.Text    : '{pdf_license}'
-//     @Core.IsURL     : true
-//     @Core.MediaType : 'file/pdf'
-//     pdf_social_security
-// };
-
-annotate service.CargoOrders with {
-    status_indicator @(UI.IsImageURL : true)
-};
-
-
-// // // annotate service.Driver with @(Communication : {Contact : {
-// // //     $Type : 'Communication.ContactType',
-// // //     fn    : driver_name, driver_last_name,
-// // //     role  : '{i18n>Supplier}',
-// // //     photo : 'sap-icon://supplier',
-// // //     tel   : [
-// // //         {
-// // //             type : #work,
-// // //             uri  : cell_phone_number
-// // //         }
-// // //     ]
-// // // }, });
