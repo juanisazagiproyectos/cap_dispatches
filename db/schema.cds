@@ -41,11 +41,13 @@ entity CargoOrders                                 @(cds.autoexpose) : managed {
         vehicle_body_in             : Boolean;
         scale_ticket_in             : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket_in      @Core.ContentDisposition.Type : 'inline';
         fileNameScale_ticket_in     : String;
+        remark_sticket_in           : LargeString;
         vehicle_cabin_out           : Boolean;
         vehicle_engine_out          : Boolean;
         vehicle_body_out            : Boolean;
         scale_ticket_out            : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket_out     @Core.ContentDisposition.Type : 'inline';
         fileNameScale_ticket_out    : String;
+        remark_sticket_out          : LargeString;
 };
 
 entity Department : managed {

@@ -1,24 +1,24 @@
 using CatalogService as service from '../../srv/catalog-service';
 
 annotate service.CargoOrders with {
-    order_id            @title : '{i18n>Order}'              @readonly;
-    status_order        @title : '{i18n>Status}'             @readonly;
-    cargo_date          @title : '{i18n>Cargo_date}';
-    department_route    @title : '{i18n>Department_route}';
-    city_route          @title : '{i18n>City_route}';
-    vehicle_plate       @title : '{i18n>Vehicle_plate}';
-    trailer             @title : '{i18n>Trailer}';
-    capacity            @title : '{i18n>Capacity}';
-    id_card             @title : '{i18n>ID Card} ';
-    driver_name         @title : '{i18n>Driver_name}';
-    driver_last_name    @title : '{i18n>Driver_last_name}';
-    cell_phone_number   @title : '{i18n>Cell_phone_number}'  @Communication.IsPhoneNumber;
-    driving_license     @title : '{i18n>Driving_license}';
-    pdf_id_card         @title : '{i18n>PDF_ID_Card}';
-    driver_photo        @title : '{i18n>Driver_photo}';
-    pdf_license         @title : '{i18n>PDF_license}';
-    pdf_social_security @title : '{i18n>PDF_social_security}';
-    remarks             @UI.MultiLineText                    @title : '{i18n>Remarks}';
+    order_id             @title : '{i18n>Order}'                @readonly;
+    status_order         @title : '{i18n>Status}'               @readonly;
+    cargo_date           @title : '{i18n>Cargo_date}'           @mandatory;
+    department_route     @title : '{i18n>Department_route}'     @mandatory;
+    city_route           @title : '{i18n>City_route}'           @mandatory;
+    vehicle_plate        @title : '{i18n>Vehicle_plate}'        @mandatory;
+    trailer              @title : '{i18n>Trailer}'              @mandatory;
+    capacity             @title : '{i18n>Capacity}'             @mandatory;
+    id_card              @title : '{i18n>ID Card} '             @mandatory;
+    driver_name          @title : '{i18n>Driver_name}'          @mandatory;
+    driver_last_name     @title : '{i18n>Driver_last_name}'     @mandatory;
+    cell_phone_number    @title : '{i18n>Cell_phone_number}'    @mandatory  @Communication.IsPhoneNumber;
+    driving_license      @title : '{i18n>Driving_license}'      @mandatory;
+    pdf_id_card          @title : '{i18n>PDF_ID_Card}'          @mandatory;
+    driver_photo         @title : '{i18n>Driver_photo}'         @mandatory;
+    pdf_license          @title : '{i18n>PDF_license}'          @mandatory;
+    pdf_social_security  @title : '{i18n>PDF_social_security}'  @mandatory;
+    remarks              @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
 }
 

@@ -21,12 +21,22 @@ annotate service.VehiculeSecurityReview with {
     remarks                  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
     sap_order                @title : '{i18n>sap_order}'            @readonly;
     remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
+    vehicle_cabin_in         @title : '{i18n>cabin}'                @mandatory;
+    vehicle_engine_in        @title : '{i18n>engine}'               @mandatory;
+    vehicle_body_in          @title : '{i18n>body}'                 @mandatory;
+    scale_ticket_in          @title : '{i18n>ticket}'               @mandatory;
+    remark_sticket_in        @UI.MultiLineText                      @title : '{i18n>Remarks}';
+    vehicle_cabin_out        @title : '{i18n>cabin}'                @mandatory;
+    vehicle_engine_out       @title : '{i18n>engine}'               @mandatory;
+    vehicle_body_out         @title : '{i18n>body}'                 @mandatory;
+    scale_ticket_out         @title : '{i18n>ticket}'               @mandatory;
+    remark_sticket_out       @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
 }
 
 annotate service.VehiculeSecurityReview with @(UI : {
 
-    HeaderInfo           : {
+    HeaderInfo                : {
         TypeName       : '{i18n>Order}',
         TypeNamePlural : '{i18n>Orders}',
         Title          : {
@@ -40,9 +50,9 @@ annotate service.VehiculeSecurityReview with @(UI : {
         ImageUrl       : status_order.icon
     },
 
-    SelectionFields      : [status_order.name],
+    SelectionFields           : [status_order.name],
 
-    LineItem             : [
+    LineItem                  : [
         {Value : status_order.icon},
         {Value : status_order.name},
         {Value : cargo_date},
@@ -51,19 +61,19 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : capacity},
         {Value : id_card}
     ],
-    FieldGroup #Dispatch : {Data : [
+    FieldGroup #Dispatch      : {Data : [
         {Value : cargo_date},
         {Value : department_route_code},
         {Value : city_route_code}
     ]},
 
-    FieldGroup #Car      : {Data : [
+    FieldGroup #Car           : {Data : [
         {Value : vehicle_plate},
         {Value : trailer},
         {Value : capacity}
     ]},
 
-    FieldGroup #Driver   : {Data : [
+    FieldGroup #Driver        : {Data : [
         {Value : id_card},
         {Value : driver_name},
         {Value : driver_last_name},
@@ -71,21 +81,39 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : cell_phone_number}
     ]},
 
-    FieldGroup #Document : {Data : [
+    FieldGroup #Document      : {Data : [
         {Value : driver_photo},
         {Value : pdf_id_card},
         {Value : pdf_license},
         {Value : pdf_social_security}
     ]},
 
-    FieldGroup #Remarks  : {Data : [{Value : remarks}]},
+    FieldGroup #Remarks       : {Data : [{Value : remarks}]},
 
-    FieldGroup #Approval : {Data : [
+    FieldGroup #Approval      : {Data : [
         {Value : sap_order},
         {Value : remarksOrdersManagement}
     ]},
 
-    Facets               : [
+    FieldGroup #Input_review  : {Data : [
+        {Value : vehicle_cabin_in},
+        {Value : vehicle_engine_in},
+        {Value : vehicle_body_in},
+        {Value : scale_ticket_in},
+        {Value : remark_sticket_in}
+
+    ]},
+
+    FieldGroup #Output_review : {Data : [
+        {Value : vehicle_cabin_out},
+        {Value : vehicle_engine_out},
+        {Value : vehicle_body_out},
+        {Value : scale_ticket_out},
+        {Value : remark_sticket_out}
+
+
+    ]},
+    Facets                    : [
         {
             $Type  : 'UI.ReferenceFacet',
             Label  : '{i18n>Dispatch}',
@@ -115,6 +143,16 @@ annotate service.VehiculeSecurityReview with @(UI : {
             $Type  : 'UI.ReferenceFacet',
             Label  : '{i18n>Approval}',
             Target : '@UI.FieldGroup#Approval'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>input_review}',
+            Target : '@UI.FieldGroup#Input_review'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>output_review}',
+            Target : '@UI.FieldGroup#Output_review'
         }
     ],
 }, ) {};
@@ -144,7 +182,7 @@ annotate service.VehiculeSecurityReview with {
 };
 
 //Help Value City
-annotate service.OrdersManagement with {
+annotate service.VehiculeSecurityReview with {
     city_route @(Common : {
         Text            : city_route.description,
         TextArrangement : #TextOnly,
