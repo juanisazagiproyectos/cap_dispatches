@@ -44,7 +44,10 @@ annotate service.OrdersManagement with @(UI : {
 
     LineItem             : [
         {Value : status_order.icon},
-        {Value : status_order.name},
+        {
+            Label : '{i18n>Status}',
+            Value : status_order.name
+        },
         {Value : cargo_date},
         {Value : vehicle_plate},
         {Value : trailer},

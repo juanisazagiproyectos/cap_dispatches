@@ -130,15 +130,15 @@
                                     "columns": {
                                         "order_id": {
                                             "header": "{{Order}}",
+                                            "width" :"6%",
                                             "template": "com.cargoordermanagement.cargoordermanagement.ext.orderidColumn",
                                             "properties": [
                                                 "order_id"
                                             ],
                                             "availability": "Default",
                                             "horizontalAlign": "Right",
-                                            "width": "auto",
                                             "position": {
-                                                "placement": "After",
+                                                "placement": "Before",
                                                 "anchor": "DataField::cargo_date"
                                             }
                                         }

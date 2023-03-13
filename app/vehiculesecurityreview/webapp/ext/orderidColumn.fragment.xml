@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" 
+width="2%">
+    <Text
+        text="{
+            path: 'order_id',
+            type: 'any',
+            formatter: 'handler.keepOnlyNumericCharacters'
+        }"
+        core:require="{handler: 'com/vehiculesecurityreview/vehiculesecurityreview/ext/NumberToUnformattedString'}"/>
+</core:FragmentDefinition>

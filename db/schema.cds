@@ -12,8 +12,9 @@ entity CargoOrders                                 @(cds.autoexpose) : managed {
             9999999999
         ];
         // status_order                : String(10);
-        status_indicator            : String(50);
+        // status_indicator            : String(50);
         status_order                : Association to one StatusOrder;
+        internal_status             : Association to one StatusOrder;
         cargo_date                  : Date;
         department_route            : Association to Department;
         city_route                  : Association to City;

@@ -2,7 +2,7 @@ using CatalogService as service from '../../srv/catalog-service';
 
 annotate service.VehiculeSecurityReview with {
     order_id                 @title : '{i18n>Order}'                @readonly;
-    status_order             @title : '{i18n>Status}'               @readonly;
+    internal_status          @title : '{i18n>Status}'               @readonly;
     cargo_date               @title : '{i18n>Cargo_date}'           @readonly;
     department_route         @title : '{i18n>Department_route}'     @readonly;
     city_route               @title : '{i18n>City_route}'           @readonly;
@@ -45,16 +45,19 @@ annotate service.VehiculeSecurityReview with @(UI : {
         },
         Description    : {
             $Type : 'UI.DataField',
-            Value : status_order.name
+            Value : internal_status.name
         },
-        ImageUrl       : status_order.icon
+        ImageUrl       : internal_status.icon
     },
 
-    SelectionFields           : [status_order.name],
+    SelectionFields           : [internal_status.name],
 
     LineItem                  : [
-        {Value : status_order.icon},
-        {Value : status_order.name},
+        {Value : internal_status.icon},
+        {
+            Label : '{i18n>Status}',
+            Value : internal_status.name
+        },
         {Value : cargo_date},
         {Value : vehicle_plate},
         {Value : trailer},
@@ -100,7 +103,19 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : vehicle_engine_in},
         {Value : vehicle_body_in},
         {Value : scale_ticket_in},
-        {Value : remark_sticket_in}
+        {Value : remark_sticket_in},
+        {
+            $Type             : 'UI.DataFieldForAction',
+            Action            : 'CatalogService.reviewInApproveAction',
+            Label             : '{i18n>Approve}',
+            ![@UI.Emphasized] : true,
+        },
+        {
+            $Type             : 'UI.DataFieldForAction',
+            Action            : 'CatalogService.reviewInRejectAction',
+            Label             : '{i18n>Reject}',
+            ![@UI.Emphasized] : true,
+        }
 
     ]},
 
@@ -109,7 +124,19 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : vehicle_engine_out},
         {Value : vehicle_body_out},
         {Value : scale_ticket_out},
-        {Value : remark_sticket_out}
+        {Value : remark_sticket_out},
+        {
+            $Type             : 'UI.DataFieldForAction',
+            Action            : 'CatalogService.reviewOutApproveAction',
+            Label             : '{i18n>Approve}',
+            ![@UI.Emphasized] : true,
+        },
+        {
+            $Type             : 'UI.DataFieldForAction',
+            Action            : 'CatalogService.reviewOutRejectAction',
+            Label             : '{i18n>Reject}',
+            ![@UI.Emphasized] : true,
+        }
 
 
     ]},
