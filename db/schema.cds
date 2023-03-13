@@ -1,15 +1,19 @@
 namespace com.dispatches;
 
-using {managed} from '@sap/cds/common';
+using {
+    managed,
+    cuid
+} from '@sap/cds/common';
 
 entity CargoOrders                                 @(cds.autoexpose) : managed {
     key ID                          : UUID         @(Core.Computed : true);
-        order_id                    : Integer      @assert.range   : [
+    key order_id                    : Integer      @assert.range   : [
             0000000001,
             9999999999
         ];
-        status_order                : String(10);
+        // status_order                : String(10);
         status_indicator            : String(50);
+        status_order                : Association to one StatusOrder;
         cargo_date                  : Date;
         department_route            : Association to Department;
         city_route                  : Association to City;
@@ -54,6 +58,13 @@ entity City : managed {
         department  : Association to Department;
         description : String;
 };
+
+entity StatusOrder : cuid {
+    key ID          : Integer;
+        name        : String(10);
+        description : String(50);
+        icon        : String(50)
+}
 
 entity Driver : managed {
     key id_card              : String(10);

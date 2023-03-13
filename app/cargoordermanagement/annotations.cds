@@ -1,8 +1,37 @@
 using CatalogService as service from '../../srv/catalog-service';
 
+
+// annotate service.OrdersManagement with @(UI.LineItem : [
+//     {
+//         $Type : 'UI.DataField',
+//         Label : 'Status',
+//         Value : status_order.name,
+//     },
+//     {
+//         $Type : 'UI.DataField',
+//         Label : 'name',
+//         Value : cargo_date,
+//     },
+//     {
+//         $Type : 'UI.DataField',
+//         Label : 'description',
+//         Value : trailer,
+//     },
+//     {
+//         $Type : 'UI.DataField',
+//         Label : 'startDate',
+//         Value : capacity,
+//     },
+//     {
+//         $Type : 'UI.DataField',
+//         Label : 'endDate',
+//         Value : id_card,
+//     },
+// ]);
+
 annotate service.OrdersManagement with {
     order_id                 @title : '{i18n>Order}'                @readonly;
-    status_order             @title : '{i18n>Status}'               @readonly;
+    status_order_code        @title : '{i18n>Status}'               @readonly;
     cargo_date               @title : '{i18n>Cargo_date}'           @readonly;
     department_route         @title : '{i18n>Department_route}'     @readonly;
     city_route               @title : '{i18n>City_route}'           @readonly;
@@ -29,29 +58,33 @@ annotate service.OrdersManagement with @(UI : {
     HeaderInfo           : {
         TypeName       : '{i18n>Order}',
         TypeNamePlural : '{i18n>Orders}',
-        // Title          : {
-        //     $Type : 'UI.DataField',
-        //     Value : order_id
-        // },
-        // Description    : {
-        //     $Type    : 'UI.DataField',
-        //     Value    : status_order
-        // }
-        Title          : {Value : order_id},
-        Description    : {Value : cargo_date},
+        Title          : {
+            $Type : 'UI.DataField',
+            Value : order_id
+        },
+        Description    : {
+            $Type : 'UI.DataField',
+            Value : status_order.name
+        },
+        // Title          : {Value : order_id},
+        // Description    : {Value : cargo_date},
         // ImageUrl       : status_indicator
-        ImageUrl       : 'sap-icon://future'
+        ImageUrl :status_order.icon
     },
-    SelectionFields      : [status_order],
+    SelectionFields      : [status_order.name],
     LineItem             : [
-        {
+        // {
         // $Type : 'UI.DataFieldWithUrl',
-        Value : status_indicator,
-                                  // Url   : status_indicator,
-                                  // IconUrl:'sap-icon://future'
-                },
-
-        // {Value : order_id},
+        // Value : status_indicator,
+        // Url   : status_indicator,
+        // IconUrl:'sap-icon://future'
+        // },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Name',
+            Value : status_order.ID
+        },
+        {Value : status_order.name},
         {Value : cargo_date},
         // {Value : city_route},
         // {Value : department_route},
@@ -64,7 +97,7 @@ annotate service.OrdersManagement with @(UI : {
                  }
     ],
     FieldGroup #Dispatch : {Data : [
-        // {Value : cargo_date},
+        {Value : cargo_date},
         {Value : department_route_code},
         {Value : city_route_code}
     ]},
@@ -113,13 +146,13 @@ annotate service.OrdersManagement with @(UI : {
         {Value : remarksOrdersManagement},
         {
             $Type             : 'UI.DataFieldForAction',
-            Action            : 'CatalogService.EntityContainer/approveAction',
+            Action            : 'CatalogService.orderApproveAction',
             Label             : '{i18n>Approve}',
             ![@UI.Emphasized] : true,
         },
-                {
+        {
             $Type             : 'UI.DataFieldForAction',
-            Action            : 'CatalogService.EntityContainer/rejectAction',
+            Action            : 'CatalogService.orderRejectAction',
             Label             : '{i18n>Reject}',
             ![@UI.Emphasized] : true,
         }

@@ -37,20 +37,27 @@ service CatalogService {
     //     }
     // ]) as projection on dispatches.CargoOrders;
 
+    entity StatusOrder               as projection on dispatches.StatusOrder;
+
     entity Department                as projection on dispatches.Department;
     annotate Department with @odata.draft.enabled;
     entity City                      as projection on dispatches.City;
     annotate City with @odata.draft.enabled;
     entity ManagementApps            as projection on dispatches.ManagementApps;
     annotate ManagementApps with @odata.draft.enabled;
-    entity OrdersManagement          as projection on dispatches.CargoOrders;
+    entity OrdersManagement          as projection on dispatches.CargoOrders actions{
+    action orderRejectAction(@(title : '{i18n>Note}') @(UI.MultiLineText)input : String);
+    action orderApproveAction();
+    };
     annotate OrdersManagement with @odata.draft.enabled;
     entity VehiculeSecurityReview    as projection on dispatches.CargoOrders;
     annotate VehiculeSecurityReview with @odata.draft.enabled;
+    entity DispatchesForms    as projection on dispatches.CargoOrders;
+    annotate DispatchesForms with @odata.draft.enabled;
     // entity VehicleEntrySecurityCheck as projection on dispatches.CargoOrders;
     // annotate VehicleEntrySecurityCheck with @odata.draft.enabled;
     // entity VehicleExitSecurityCheck  as projection on dispatches.CargoOrders;
     // annotate VehicleExitSecurityCheck with @odata.draft.enabled;
-    action rejectAction(@(title : '{i18n>Note}') @(UI.MultiLineText)input : String);
-    action approveAction();
+    // action orderRejectAction(@(title : '{i18n>Note}') @(UI.MultiLineText)input : String);
+    // action orderApproveAction();
 }
