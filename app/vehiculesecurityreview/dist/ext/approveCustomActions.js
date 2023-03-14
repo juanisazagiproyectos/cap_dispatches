@@ -1,0 +1,2 @@
+sap.ui.define(["sap/m/MessageBox","sap/ui/core/library"],function(e,r){"use strict";return{messageBox:function(){e.confirm("Approve the order?")},enabled:function(){return true},enabledForSingleSelect:function(e,r){if(r&&r.length===1){return true}return false}}});
+//# sourceMappingURL=approveCustomActions.js.map

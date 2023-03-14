@@ -1,157 +1,174 @@
 {
-  "_version": "1.49.0",
-  "sap.app": {
-    "id": "com.vehiculesecurityreview.vehiculesecurityreview",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "0.0.1"
-    },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:lrop",
-      "version": "1.9.0",
-      "toolsId": "3ca37bc5-b837-4b2e-ae9d-29a859e67de0"
-    },
-    "dataSources": {
-      "mainService": {
-        "uri": "/catalog/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/metadata.xml",
-          "odataVersion": "4.0"
-        }
-      }
-    }
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
-  },
-  "sap.ui5": {
-    "flexEnabled": true,
-    "dependencies": {
-      "minUI5Version": "1.111.0",
-      "libs": {
-        "sap.m": {},
-        "sap.ui.core": {},
-        "sap.ushell": {},
-        "sap.fe.templates": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "com.vehiculesecurityreview.vehiculesecurityreview.i18n.i18n"
-        }
-      },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {
-          "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
-        }
-      },
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
-      }
-    },
-    "resources": {
-      "css": []
-    },
-    "routing": {
-      "config": {},
-      "routes": [
-        {
-          "pattern": ":?query:",
-          "name": "VehiculeSecurityReviewList",
-          "target": "VehiculeSecurityReviewList"
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "com.vehiculesecurityreview.vehiculesecurityreview",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
         },
-        {
-          "pattern": "VehiculeSecurityReview({key}):?query:",
-          "name": "VehiculeSecurityReviewObjectPage",
-          "target": "VehiculeSecurityReviewObjectPage"
-        }
-      ],
-      "targets": {
-        "VehiculeSecurityReviewList": {
-          "type": "Component",
-          "id": "VehiculeSecurityReviewList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "entitySet": "VehiculeSecurityReview",
-              "variantManagement": "Page",
-              "navigation": {
-                "VehiculeSecurityReview": {
-                  "detail": {
-                    "route": "VehiculeSecurityReviewObjectPage"
-                  }
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.9.0",
+            "toolsId": "3ca37bc5-b837-4b2e-ae9d-29a859e67de0"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "vehiculesecurityreview-display": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "vehiculesecurityreview",
+                    "action": "display"
                 }
-              },
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "columns": {
-                    "order_id": {
-                      "header": "{{Order}}",
-                      "width" :"6%",
-                      "template": "com.vehiculesecurityreview.vehiculesecurityreview.ext.orderidColumn",
-                      "properties": [
-                        "order_id"
-                      ],
-                      "availability": "Default",
-                      "horizontalAlign": "Right",
-                      "position": {
-                        "placement": "Before",
-                        "anchor": "DataField::cargo_date"
-                      }
+            }
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/catalog/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.111.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.vehiculesecurityreview.vehiculesecurityreview.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "VehiculeSecurityReviewList",
+                    "target": "VehiculeSecurityReviewList"
+                },
+                {
+                    "pattern": "VehiculeSecurityReview({key}):?query:",
+                    "name": "VehiculeSecurityReviewObjectPage",
+                    "target": "VehiculeSecurityReviewObjectPage"
+                }
+            ],
+            "targets": {
+                "VehiculeSecurityReviewList": {
+                    "type": "Component",
+                    "id": "VehiculeSecurityReviewList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "VehiculeSecurityReview",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "VehiculeSecurityReview": {
+                                    "detail": {
+                                        "route": "VehiculeSecurityReviewObjectPage"
+                                    }
+                                }
+                            },
+                            "initialLoad": true,
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "order_id": {
+                                            "header": "{{Order}}",
+                                            "width": "10%",
+                                            "template": "com.vehiculesecurityreview.vehiculesecurityreview.ext.orderidColumn",
+                                            "properties": [
+                                                "order_id"
+                                            ],
+                                            "availability": "Default",
+                                            "horizontalAlign": "Right",
+                                            "position": {
+                                                "placement": "Before",
+                                                "anchor": "DataField::cargo_date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                  }
+                },
+                "VehiculeSecurityReviewObjectPage": {
+                    "type": "Component",
+                    "id": "VehiculeSecurityReviewObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "VehiculeSecurityReview"
+                        }
+                    }
                 }
-              }
             }
-          }
-        },
-        "VehiculeSecurityReviewObjectPage": {
-          "type": "Component",
-          "id": "VehiculeSecurityReviewObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": false,
-              "entitySet": "VehiculeSecurityReview"
-            }
-          }
         }
-      }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "dispatches"
     }
-  },
-  "sap.fiori": {
-    "registrationIds": [],
-    "archeType": "transactional"
-  }
 }

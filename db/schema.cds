@@ -7,7 +7,7 @@ using {
 
 entity CargoOrders                                 @(cds.autoexpose) : managed {
     key ID                          : UUID         @(Core.Computed : true);
-    key order_id                    : Integer      @assert.range   : [
+        order_id                    : Integer      @assert.range   : [
             0000000001,
             9999999999
         ];

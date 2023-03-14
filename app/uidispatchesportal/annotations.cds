@@ -22,6 +22,20 @@ annotate service.CargoOrders with {
 
 }
 
+// annotate service.CargoOrders with @(
+//     UI.PresentationVariant :{
+//         SortOrder : [
+//             {
+//                 Property : order_id,
+//                 Descending : true,
+//             },
+//         ],
+//         Visualizations : [
+//             '@UI.LineItem',
+//         ],
+//     },
+// );
+
 annotate service.CargoOrders with @(UI : {
 
     HeaderInfo           : {

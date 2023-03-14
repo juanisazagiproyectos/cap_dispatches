@@ -1,7 +1,7 @@
 {
     "_version": "1.49.0",
     "sap.app": {
-        "id": "com.cargoordermanagement.cargoordermanagement",
+        "id": "com.vehiculesecurityreview.vehiculesecurityreview",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -13,16 +13,16 @@
         "sourceTemplate": {
             "id": "@sap/generator-fiori:lrop",
             "version": "1.9.0",
-            "toolsId": "d86a5958-7c4e-4b7d-802c-280d7943620a"
+            "toolsId": "3ca37bc5-b837-4b2e-ae9d-29a859e67de0"
         },
         "crossNavigation": {
             "inbounds": {
-                "cargoordermanagement-display": {
+                "vehiculesecurityreview-display": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "cargoordermanagement",
+                    "semanticObject": "vehiculesecurityreview",
                     "action": "display"
                 }
             }
@@ -58,7 +58,7 @@
     "sap.ui5": {
         "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.110.1",
+            "minUI5Version": "1.111.0",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -74,7 +74,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "com.cargoordermanagement.cargoordermanagement.i18n.i18n"
+                    "bundleName": "com.vehiculesecurityreview.vehiculesecurityreview.i18n.i18n"
                 }
             },
             "": {
@@ -100,38 +100,39 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "OrdersManagementList",
-                    "target": "OrdersManagementList"
+                    "name": "VehiculeSecurityReviewList",
+                    "target": "VehiculeSecurityReviewList"
                 },
                 {
-                    "pattern": "OrdersManagement({key}):?query:",
-                    "name": "OrdersManagementObjectPage",
-                    "target": "OrdersManagementObjectPage"
+                    "pattern": "VehiculeSecurityReview({key}):?query:",
+                    "name": "VehiculeSecurityReviewObjectPage",
+                    "target": "VehiculeSecurityReviewObjectPage"
                 }
             ],
             "targets": {
-                "OrdersManagementList": {
+                "VehiculeSecurityReviewList": {
                     "type": "Component",
-                    "id": "OrdersManagementList",
+                    "id": "VehiculeSecurityReviewList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "OrdersManagement",
+                            "entitySet": "VehiculeSecurityReview",
                             "variantManagement": "Page",
                             "navigation": {
-                                "OrdersManagement": {
+                                "VehiculeSecurityReview": {
                                     "detail": {
-                                        "route": "OrdersManagementObjectPage"
+                                        "route": "VehiculeSecurityReviewObjectPage"
                                     }
                                 }
                             },
+                            "initialLoad": true,
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "columns": {
                                         "order_id": {
                                             "header": "{{Order}}",
                                             "width": "10%",
-                                            "template": "com.cargoordermanagement.cargoordermanagement.ext.orderidColumn",
+                                            "template": "com.vehiculesecurityreview.vehiculesecurityreview.ext.orderidColumn",
                                             "properties": [
                                                 "order_id"
                                             ],
@@ -148,19 +149,14 @@
                         }
                     }
                 },
-                "OrdersManagementObjectPage": {
+                "VehiculeSecurityReviewObjectPage": {
                     "type": "Component",
-                    "id": "OrdersManagementObjectPage",
+                    "id": "VehiculeSecurityReviewObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "content": {
-                                "footer": {
-                                    "actions": {}
-                                }
-                            },
                             "editableHeaderContent": false,
-                            "entitySet": "OrdersManagement"
+                            "entitySet": "VehiculeSecurityReview"
                         }
                     }
                 }

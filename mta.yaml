@@ -79,6 +79,10 @@ modules:
       - comcargoordermanagementcargoordermanagement.zip
       name: comcargoordermanagementcargoordermanagement
       target-path: resources/
+    - artifacts:
+      - comvehiculesecurityreviewvehiculesecurityreview.zip
+      name: comvehiculesecurityreviewvehiculesecurityreview
+      target-path: resources/
 - name: comdispatchesportaluidispatchesportal
   type: html5
   path: app/uidispatchesportal
@@ -92,6 +96,16 @@ modules:
 - name: comcargoordermanagementcargoordermanagement
   type: html5
   path: app/cargoordermanagement
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comvehiculesecurityreviewvehiculesecurityreview
+  type: html5
+  path: app/vehiculesecurityreview
   build-parameters:
     build-result: dist
     builder: custom
