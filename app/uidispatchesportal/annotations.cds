@@ -47,18 +47,19 @@ annotate service.CargoOrders with @(UI : {
         },
         Description    : {
             $Type : 'UI.DataField',
-            Value : status_order.name
+            Value : status_order.description
         },
-        ImageUrl       : status_order.icon
+        ImageUrl       : status_order.ID,
     },
 
-    SelectionFields      : [status_order.name],
+    SelectionFields      : [status_order.description],
 
     LineItem             : [
-        {Value : status_order.icon},
+        // {Value : status_order.icon},
         {
-            Label : '{i18n>Status}',
-            Value : status_order.name
+            Label       : '{i18n>Status}',
+            Value       : status_order.description,
+            Criticality : status_order.ID,
         },
         {Value : cargo_date},
         {Value : vehicle_plate},

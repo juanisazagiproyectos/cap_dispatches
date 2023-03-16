@@ -63,11 +63,13 @@ service CatalogService {
     };
 
     annotate VehiculeSecurityReview with @odata.draft.enabled;
-    
-    //Dispatches Forms
-    entity DispatchesForms        as projection on dispatches.CargoOrders;
-    annotate DispatchesForms with @odata.draft.enabled;
 
+    //Dispatches Forms
+    entity DispatchesForms        as projection on dispatches.CargoOrders actions {
+        action formsAction();
+    };
+
+    annotate DispatchesForms with @odata.draft.enabled;
     //Management Apps
     entity ManagementApps         as projection on dispatches.ManagementApps;
     annotate ManagementApps with @odata.draft.enabled;
@@ -76,6 +78,5 @@ service CatalogService {
 // annotate VehicleEntrySecurityCheck with @odata.draft.enabled;
 // entity VehicleExitSecurityCheck  as projection on dispatches.CargoOrders;
 // annotate VehicleExitSecurityCheck with @odata.draft.enabled;
-// action orderRejectAction(@(title : '{i18n>Note}') @(UI.MultiLineText)input : String);
-// action orderApproveAction();
+
 }

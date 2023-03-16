@@ -1,0 +1,4 @@
+﻿ID,description,icon
+1,Rechazado,sap-icon://decline
+2,Pendiente,sap-icon://future
+3,Aprobado,sap-icon://accept

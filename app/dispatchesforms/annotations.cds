@@ -1,6 +1,6 @@
 using CatalogService as service from '../../srv/catalog-service';
 
-annotate service.VehiculeSecurityReview with {
+annotate service.DispatchesForms with {
     order_id                 @title : '{i18n>Order}'                @readonly;
     internal_status          @title : '{i18n>Status}'               @readonly;
     cargo_date               @title : '{i18n>Cargo_date}'           @readonly;
@@ -21,20 +21,20 @@ annotate service.VehiculeSecurityReview with {
     remarks                  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
     sap_order                @title : '{i18n>sap_order}'            @readonly;
     remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
-    vehicle_cabin_in         @title : '{i18n>cabin}'                @mandatory;
-    vehicle_engine_in        @title : '{i18n>engine}'               @mandatory;
-    vehicle_body_in          @title : '{i18n>body}'                 @mandatory;
-    scale_ticket_in          @title : '{i18n>ticket}'               @mandatory;
+    vehicle_cabin_in         @title : '{i18n>cabin}'                @readonly;
+    vehicle_engine_in        @title : '{i18n>engine}'               @readonly;
+    vehicle_body_in          @title : '{i18n>body}'                 @readonly;
+    scale_ticket_in          @title : '{i18n>ticket}'               @readonly;
     remark_sticket_in        @UI.MultiLineText                      @title : '{i18n>Remarks}';
-    vehicle_cabin_out        @title : '{i18n>cabin}'                @mandatory;
-    vehicle_engine_out       @title : '{i18n>engine}'               @mandatory;
-    vehicle_body_out         @title : '{i18n>body}'                 @mandatory;
-    scale_ticket_out         @title : '{i18n>ticket}'               @mandatory;
+    vehicle_cabin_out        @title : '{i18n>cabin}'                @readonly;
+    vehicle_engine_out       @title : '{i18n>engine}'               @readonly;
+    vehicle_body_out         @title : '{i18n>body}'                 @readonly;
+    scale_ticket_out         @title : '{i18n>ticket}'               @readonly;
     remark_sticket_out       @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
 }
 
-annotate service.VehiculeSecurityReview with @(UI : {
+annotate service.DispatchesForms with @(UI : {
 
     HeaderInfo                : {
         TypeName       : '{i18n>Order}',
@@ -47,7 +47,8 @@ annotate service.VehiculeSecurityReview with @(UI : {
             $Type : 'UI.DataField',
             Value : internal_status.description
         },
-        ImageUrl       : internal_status.icon
+        ImageUrl       : internal_status.icon,
+
     },
 
     SelectionFields           : [internal_status.description],
@@ -103,19 +104,7 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : vehicle_engine_in},
         {Value : vehicle_body_in},
         {Value : scale_ticket_in},
-        {Value : remark_sticket_in},
-        {
-            $Type             : 'UI.DataFieldForAction',
-            Action            : 'CatalogService.reviewInApproveAction',
-            Label             : '{i18n>Approve}',
-            ![@UI.Emphasized] : true,
-        },
-        {
-            $Type             : 'UI.DataFieldForAction',
-            Action            : 'CatalogService.reviewInRejectAction',
-            Label             : '{i18n>Reject}',
-            ![@UI.Emphasized] : true,
-        }
+        {Value : remark_sticket_in}
 
     ]},
 
@@ -124,20 +113,7 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : vehicle_engine_out},
         {Value : vehicle_body_out},
         {Value : scale_ticket_out},
-        {Value : remark_sticket_out},
-        {
-            $Type             : 'UI.DataFieldForAction',
-            Action            : 'CatalogService.reviewOutApproveAction',
-            Label             : '{i18n>Approve}',
-            ![@UI.Emphasized] : true,
-        },
-        {
-            $Type             : 'UI.DataFieldForAction',
-            Action            : 'CatalogService.reviewOutRejectAction',
-            Label             : '{i18n>Reject}',
-            ![@UI.Emphasized] : true,
-        }
-
+        {Value : remark_sticket_out}
 
     ]},
     Facets                    : [
@@ -185,7 +161,7 @@ annotate service.VehiculeSecurityReview with @(UI : {
 }, ) {};
 
 //Help Value Department
-annotate service.VehiculeSecurityReview with {
+annotate service.DispatchesForms with {
     department_route @(Common : {
         Text            : department_route.description,
         TextArrangement : #TextOnly,
@@ -209,7 +185,7 @@ annotate service.VehiculeSecurityReview with {
 };
 
 //Help Value City
-annotate service.VehiculeSecurityReview with {
+annotate service.DispatchesForms with {
     city_route @(Common : {
         Text            : city_route.description,
         TextArrangement : #TextOnly,
@@ -232,17 +208,20 @@ annotate service.VehiculeSecurityReview with {
     });
 };
 
-annotate service.VehiculeSecurityReview with @(Capabilities : {
+//Control CRUD
+annotate service.DispatchesForms with @(Capabilities : {
     DeleteRestrictions : {
         $Type     : 'Capabilities.DeleteRestrictionsType',
         Deletable : false
     },
     UpdateRestrictions : {
         $Type     : 'Capabilities.UpdateRestrictionsType',
-        Updatable : true
+        Updatable : false
     },
     InsertRestrictions : {
         $Type      : 'Capabilities.InsertRestrictionsType',
         Insertable : false
     }
 });
+
+annotate service.DispatchesForms with @(UI.UpdateHidden : true, );

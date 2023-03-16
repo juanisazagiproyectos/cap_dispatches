@@ -160,6 +160,7 @@
                                 }
                             },
                             "editableHeaderContent": false,
+                            "forceGlobalRefresh": true,
                             "entitySet": "OrdersManagement"
                         }
                     }

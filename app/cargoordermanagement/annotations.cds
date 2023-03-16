@@ -35,18 +35,19 @@ annotate service.OrdersManagement with @(UI : {
         },
         Description    : {
             $Type : 'UI.DataField',
-            Value : status_order.name
+            Value : status_order.description
         },
         ImageUrl       : status_order.icon
     },
 
-    SelectionFields      : [status_order.name],
+    SelectionFields      : [status_order.description],
 
     LineItem             : [
-        {Value : status_order.icon},
+        // {Value : status_order.icon},
         {
-            Label : '{i18n>Status}',
-            Value : status_order.name
+            Label       : '{i18n>Status}',
+            Value       : status_order.description,
+            Criticality : status_order.ID,
         },
         {Value : cargo_date},
         {Value : vehicle_plate},
@@ -91,12 +92,20 @@ annotate service.OrdersManagement with @(UI : {
             $Type             : 'UI.DataFieldForAction',
             Action            : 'CatalogService.orderApproveAction',
             Label             : '{i18n>Approve}',
+            Inline            : true,
+            // Criticality               : 3, //Only 0,1,3 supported
+            // CriticalityRepresentation : #WithIcon,
+            // IconUrl           : 'sap-icon://status-critical',
+            // Positive (property: type = accept)
+
             ![@UI.Emphasized] : true,
         },
         {
             $Type             : 'UI.DataFieldForAction',
             Action            : 'CatalogService.orderRejectAction',
             Label             : '{i18n>Reject}',
+            Inline            : true,
+            // IconUrl           : 'sap-icon://cart',
             ![@UI.Emphasized] : true,
         }
     ]},
