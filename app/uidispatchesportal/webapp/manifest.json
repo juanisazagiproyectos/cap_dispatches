@@ -134,6 +134,7 @@
                                     }
                                 }
                             },
+                            "initialLoad": true,
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "columns": {

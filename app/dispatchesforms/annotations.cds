@@ -32,7 +32,21 @@ annotate service.DispatchesForms with {
     scale_ticket_out         @title : '{i18n>ticket}'               @readonly;
     remark_sticket_out       @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
-}
+};
+
+annotate service.DispatchesForms with @(
+    UI.PresentationVariant :{
+        SortOrder : [
+            {
+                Property : order_id,
+                Descending : true,
+            },
+        ],
+        Visualizations : [
+            '@UI.LineItem',
+        ],
+    },
+);
 
 annotate service.DispatchesForms with @(UI : {
 

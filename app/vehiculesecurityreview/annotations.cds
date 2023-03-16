@@ -32,7 +32,21 @@ annotate service.VehiculeSecurityReview with {
     scale_ticket_out         @title : '{i18n>ticket}'               @mandatory;
     remark_sticket_out       @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
-}
+};
+
+annotate service.VehiculeSecurityReview with @(
+    UI.PresentationVariant :{
+        SortOrder : [
+            {
+                Property : order_id,
+                Descending : true,
+            },
+        ],
+        Visualizations : [
+            '@UI.LineItem',
+        ],
+    },
+);
 
 annotate service.VehiculeSecurityReview with @(UI : {
 

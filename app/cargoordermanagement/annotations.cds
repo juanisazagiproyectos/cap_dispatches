@@ -22,7 +22,21 @@ annotate service.OrdersManagement with {
     sap_order                @title : '{i18n>sap_order}'            @mandatory;
     remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}';
 
-}
+};
+
+annotate service.OrdersManagement with @(
+    UI.PresentationVariant :{
+        SortOrder : [
+            {
+                Property : order_id,
+                Descending : true,
+            },
+        ],
+        Visualizations : [
+            '@UI.LineItem',
+        ],
+    },
+);
 
 annotate service.OrdersManagement with @(UI : {
 
