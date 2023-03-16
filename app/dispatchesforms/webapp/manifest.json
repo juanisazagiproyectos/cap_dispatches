@@ -120,7 +120,7 @@
                     "order_id": {
                       "header": "{{Order}}",
                       "width": "10%",
-                      "template": "com.dispatchesforms.dispatchesforms.ext.orderidColumn",
+                      "template": "com.dispatchesforms.dispatchesforms.ext.fragment.orderidColumn",
                       "properties": [
                         "order_id"
                       ],
