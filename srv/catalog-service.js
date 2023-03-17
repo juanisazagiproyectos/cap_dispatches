@@ -27,6 +27,8 @@ module.exports = cds.service.impl(async (service) => {
 			statusApprove = 2,
 			statusReject = 3,
 			firstSAPorder = bundle.getText('firstSAPorder'),
+			approvedAlreadyApproved = bundle.getText('approvedAlreadyApproved'),
+			approvedAlreadyReject = bundle.getText('approvedAlreadyReject'),
 			resultsRead = await db
 				.read(CargoOrders, ["order_id", "status_order_ID", "sap_order"])
 				.where({ ID: req.params[0].ID });
@@ -34,23 +36,18 @@ module.exports = cds.service.impl(async (service) => {
 		if (resultsRead[0].sap_order !== null) {
 			if (resultsRead[0].status_order_ID == statusPending) {
 				await UPDATE(CargoOrders, req.params[0].ID).with({ status_order_ID: statusApprove });
-
-				// const [{ ID, IsActiveEntity }] = req.params;
-				// return service.read(CargoOrders, { ID, IsActiveEntity });
-				// return req.notify(`The order ${resultsRead[0].order_id} was approved`);
 			}
 			else {
 				if (resultsRead[0].status_order_ID == statusApprove) {
-					return req.notify(`The order ${resultsRead[0].order_id} was NOT approved because it was already approved`);
+					return req.notify(approvedAlreadyApproved, resultsRead[0].order_id);
 				}
 
 				if (resultsRead[0].status_order_ID == statusReject) {
-					return req.notify(`The order ${resultsRead[0].order_id} was NOT approved because it was already reject`);
+					return req.notify(approvedAlreadyReject, resultsRead[0].order_id);
 				}
 			}
 		}
 		else {
-			// return req.notify(`You must first fill out the SAP order number`);
 			return req.notify(firstSAPorder, resultsRead[0].order_id);
 		}
 	});
@@ -61,6 +58,9 @@ module.exports = cds.service.impl(async (service) => {
 			statusReject = 1,
 			statusPending = 2,
 			statusApprove = 3,
+			firstSAPorder = bundle.getText('firstSAPorder'),
+			rejectAlreadyReject = bundle.getText('rejectAlreadyReject'),
+			rejectAlreadyApproved = bundle.getText('rejectAlreadyApproved'),
 			remarksOrder = req.data.input,
 			resultsRead = await db
 				.read(CargoOrders, ["order_id", "status_order_ID", "sap_order"])
@@ -73,31 +73,17 @@ module.exports = cds.service.impl(async (service) => {
 			}
 			else {
 				if (resultsRead[0].status_order_ID == statusReject) {
-					return req.notify(`The order ${resultsRead[0].order_id} was NOT reject because it was already reject`);
+					return req.notify(rejectAlreadyReject, resultsRead[0].order_id);
 				}
 				if (resultsRead[0].status_order_ID == statusApprove) {
-					return req.notify(`The order ${resultsRead[0].order_id} was NOT reject because it was already approved`);
+					return req.notify(rejectAlreadyApproved, resultsRead[0].order_id);
 				}
 			}
 		}
 		else {
-			return req.notify(`You must first fill out the SAP order number`);
+			return req.notify(firstSAPorder, resultsRead[0].order_id);
 		}
 	});
-
-	// service.after('PATCH', 'CargoOrders', (_, req) => {
-	// 	if ('status_order_ID' in req.data) {
-	// 		return this._refreshPage(req.data.ID)
-	// 	}
-	// });
-
-	// this._refreshPage = function (travel) {
-	// 	return UPDATE(CargoOrders.drafts, travel).with({
-	// 		Total: CXL`coalesce (BookingFee, 0) + ${SELECT`coalesce (sum (FlightPrice + ${SELECT`coalesce (sum (Price),0)`.from(BookingSupplement.drafts).where`to_Booking_BookingUUID = BookingUUID`
-	// 				}),0)`.from(Booking.drafts).where`to_Travel_TravelUUID = TravelUUID`
-	// 			}`
-	// 	})
-	// };
 
 });
 
