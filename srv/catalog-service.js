@@ -85,6 +85,22 @@ module.exports = cds.service.impl(async (service) => {
 		}
 	});
 
+	service.on("reviewInRejectAction", async req => {
+
+	});
+
+	service.on("reviewInApproveAction", async req => {
+
+	});
+
+	service.on("reviewOutRejectAction", async req => {
+
+	});
+
+	service.on("reviewOutApproveAction", async req => {
+
+	});
+
 });
 
 
