@@ -11,11 +11,8 @@ entity CargoOrders                                 @(cds.autoexpose) : managed {
             0000000001,
             9999999999
         ];
-        // order_id                    : Integer;
-        // status_order                : String(10);
-        // status_indicator            : String(50);
         status_order                : Association to one StatusOrder;
-        internal_status             : Association to one StatusOrder;
+        internal_status             : Association to one InternalStatus;
         cargo_date                  : Date;
         department_route            : Association to Department;
         city_route                  : Association to City;
@@ -64,6 +61,12 @@ entity City : managed {
 };
 
 entity StatusOrder : cuid {
+    key ID          : Integer;
+        description : String(10) @readonly;
+        icon        : String(50)
+};
+
+entity InternalStatus : cuid {
     key ID          : Integer;
         description : String(10) @readonly;
         icon        : String(50)

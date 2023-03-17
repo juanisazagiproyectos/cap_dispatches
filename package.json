@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
-    "@sap/ux-specification": "^1.108.0",
+    "@sap/ux-specification": "^1.108.1",
     "@sapui5/ts-types": "^1.92.2",
     "eslint": "^7.32.0",
     "rimraf": "^3.0.2",
@@ -34,7 +34,9 @@
     "watch-cargoordermanagement": "cds watch --open cargoordermanagement/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-vehiculessecurityreview": "cds watch --open vehiculessecurityreview/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-vehiculesecurityreview": "cds watch --open vehiculesecurityreview/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-dispatchesforms": "cds watch --open dispatchesforms/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-dispatchesforms": "cds watch --open dispatchesforms/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-loosebagnationalcargo": "cds watch --open loosebagnationalcargo/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-bigbagnationalcargo": "cds watch --open bigbagnationalcargo/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "engines": {
     "node": "^16.16"
@@ -100,6 +102,9 @@
     "app/vehiculessecurityreview",
     "app/vehiculesecurityreview",
     "app/dispatchesforms",
-    "app/dispatchesforms"
+    "app/dispatchesforms",
+    "app/loosebagnationalcargo",
+    "app/bigbagnationalcargo",
+    "app/loosebagnationalcargo"
   ]
 }

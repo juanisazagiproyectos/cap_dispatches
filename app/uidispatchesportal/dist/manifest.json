@@ -134,13 +134,14 @@
                                     }
                                 }
                             },
+                            "initialLoad": true,
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "columns": {
                                         "order_id": {
                                             "header": "{{Order}}",
                                             "width": "10%",
-                                            "template": "com.dispatchesportal.uidispatchesportal.ext.orderidColumn",
+                                            "template": "com.dispatchesportal.uidispatchesportal.ext.fragment.orderidColumn",
                                             "properties": [
                                                 "order_id"
                                             ],

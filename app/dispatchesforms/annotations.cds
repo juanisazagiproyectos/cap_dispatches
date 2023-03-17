@@ -34,19 +34,22 @@ annotate service.DispatchesForms with {
 
 };
 
-annotate service.DispatchesForms with @(
-    UI.PresentationVariant :{
-        SortOrder : [
-            {
-                Property : order_id,
-                Descending : true,
-            },
-        ],
-        Visualizations : [
-            '@UI.LineItem',
-        ],
-    },
-);
+annotate service.DispatchesForms with @(UI.PresentationVariant : {
+    SortOrder      : [{
+        Property   : order_id,
+        Descending : true,
+    }, ],
+    Visualizations : ['@UI.LineItem', ],
+}, );
+
+
+annotate service.DispatchesForms with @(UI.Identification : [{
+    $Type                     : 'UI.DataFieldForAction',
+    Action                    : 'CatalogService.formsAction',
+    Label                     : 'Selection Forms',
+    Criticality               : 1,
+    CriticalityRepresentation : #WithIcon,
+}, ], );
 
 annotate service.DispatchesForms with @(UI : {
 
@@ -65,7 +68,7 @@ annotate service.DispatchesForms with @(UI : {
 
     },
 
-    SelectionFields           : [internal_status.description],
+    SelectionFields           : [internal_status_ID],
 
     LineItem                  : [
         {Value : internal_status.icon},
@@ -219,6 +222,32 @@ annotate service.DispatchesForms with {
                 }
             ]
         }
+    });
+};
+
+//Help value Status
+annotate service.DispatchesForms with {
+    internal_status @(Common : {
+        Text      : {
+            $value                 : internal_status.description,
+            ![@UI.TextArrangement] : #TextOnly,
+        },
+        ValueList : {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'InternalStatus',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : internal_status_ID,
+                    ValueListProperty : 'ID'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : internal_status_ID,
+                    ValueListProperty : 'description'
+                }
+            ]
+        },
     });
 };
 

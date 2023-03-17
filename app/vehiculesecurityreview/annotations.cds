@@ -34,19 +34,13 @@ annotate service.VehiculeSecurityReview with {
 
 };
 
-annotate service.VehiculeSecurityReview with @(
-    UI.PresentationVariant :{
-        SortOrder : [
-            {
-                Property : order_id,
-                Descending : true,
-            },
-        ],
-        Visualizations : [
-            '@UI.LineItem',
-        ],
-    },
-);
+annotate service.VehiculeSecurityReview with @(UI.PresentationVariant : {
+    SortOrder      : [{
+        Property   : order_id,
+        Descending : true,
+    }, ],
+    Visualizations : ['@UI.LineItem', ],
+}, );
 
 annotate service.VehiculeSecurityReview with @(UI : {
 
@@ -64,7 +58,7 @@ annotate service.VehiculeSecurityReview with @(UI : {
         ImageUrl       : internal_status.icon
     },
 
-    SelectionFields           : [internal_status.description],
+    SelectionFields           : [internal_status_ID],
 
     LineItem                  : [
         {Value : internal_status.icon},
@@ -243,6 +237,32 @@ annotate service.VehiculeSecurityReview with {
                 }
             ]
         }
+    });
+};
+
+//Help value Status
+annotate service.VehiculeSecurityReview with {
+    internal_status @(Common : {
+        Text      : {
+            $value                 : internal_status.description,
+            ![@UI.TextArrangement] : #TextOnly,
+        },
+        ValueList : {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'InternalStatus',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : internal_status_ID,
+                    ValueListProperty : 'ID'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : internal_status_ID,
+                    ValueListProperty : 'description'
+                }
+            ]
+        },
     });
 };
 

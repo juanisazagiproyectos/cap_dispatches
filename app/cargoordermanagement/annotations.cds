@@ -2,7 +2,7 @@ using CatalogService as service from '../../srv/catalog-service';
 
 annotate service.OrdersManagement with {
     order_id                 @title : '{i18n>Order}'                @readonly;
-    status_order_code        @title : '{i18n>Status}'               @readonly;
+    status_order             @title : '{i18n>Status}'               @readonly;
     cargo_date               @title : '{i18n>Cargo_date}'           @readonly;
     department_route         @title : '{i18n>Department_route}'     @readonly;
     city_route               @title : '{i18n>City_route}'           @readonly;
@@ -24,19 +24,13 @@ annotate service.OrdersManagement with {
 
 };
 
-annotate service.OrdersManagement with @(
-    UI.PresentationVariant :{
-        SortOrder : [
-            {
-                Property : order_id,
-                Descending : true,
-            },
-        ],
-        Visualizations : [
-            '@UI.LineItem',
-        ],
-    },
-);
+annotate service.OrdersManagement with @(UI.PresentationVariant : {
+    SortOrder      : [{
+        Property   : order_id,
+        Descending : true,
+    }, ],
+    Visualizations : ['@UI.LineItem', ],
+}, );
 
 annotate service.OrdersManagement with @(UI : {
 
@@ -54,10 +48,9 @@ annotate service.OrdersManagement with @(UI : {
         ImageUrl       : status_order.icon
     },
 
-    SelectionFields      : [status_order.description],
+    SelectionFields      : [status_order_ID],
 
     LineItem             : [
-        // {Value : status_order.icon},
         {
             Label       : '{i18n>Status}',
             Value       : status_order.description,
@@ -107,11 +100,6 @@ annotate service.OrdersManagement with @(UI : {
             Action            : 'CatalogService.orderApproveAction',
             Label             : '{i18n>Approve}',
             Inline            : true,
-            // Criticality               : 3, //Only 0,1,3 supported
-            // CriticalityRepresentation : #WithIcon,
-            // IconUrl           : 'sap-icon://status-critical',
-            // Positive (property: type = accept)
-
             ![@UI.Emphasized] : true,
         },
         {
@@ -119,7 +107,6 @@ annotate service.OrdersManagement with @(UI : {
             Action            : 'CatalogService.orderRejectAction',
             Label             : '{i18n>Reject}',
             Inline            : true,
-            // IconUrl           : 'sap-icon://cart',
             ![@UI.Emphasized] : true,
         }
     ]},
@@ -182,7 +169,6 @@ annotate service.OrdersManagement with {
     });
 };
 
-
 //Help Value City
 annotate service.OrdersManagement with {
     city_route @(Common : {
@@ -204,6 +190,32 @@ annotate service.OrdersManagement with {
                 }
             ]
         }
+    });
+};
+
+//Help value Status
+annotate service.OrdersManagement with {
+    status_order     @(Common : {
+        Text      : {
+            $value                 : status_order.description,
+            ![@UI.TextArrangement] : #TextOnly,
+        },
+        ValueList : {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'StatusOrder',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status_order_ID,
+                    ValueListProperty : 'ID'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status_order_ID,
+                    ValueListProperty : 'description'
+                }
+            ]
+        },
     });
 };
 

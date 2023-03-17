@@ -5,5 +5,5 @@
             type: 'any',
             formatter: 'handler.keepOnlyNumericCharacters'
         }"
-        core:require="{handler: 'com/cargoordermanagement/cargoordermanagement/ext/NumberToUnformattedString'}"/>
+        core:require="{handler: 'com/dispatchesportal/uidispatchesportal/ext/controller/NumberToUnformattedString'}"/>
 </core:FragmentDefinition>

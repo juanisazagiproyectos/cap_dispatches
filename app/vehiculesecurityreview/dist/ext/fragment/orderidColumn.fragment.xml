@@ -6,5 +6,5 @@ width="2%">
             type: 'any',
             formatter: 'handler.keepOnlyNumericCharacters'
         }"
-        core:require="{handler: 'com/vehiculesecurityreview/vehiculesecurityreview/ext/NumberToUnformattedString'}"/>
+        core:require="{handler: 'com/vehiculesecurityreview/vehiculesecurityreview/ext/controller/NumberToUnformattedString'}"/>
 </core:FragmentDefinition>

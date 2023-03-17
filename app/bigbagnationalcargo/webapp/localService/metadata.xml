@@ -1,0 +1,1401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="CargoOrders" EntityType="CatalogService.CargoOrders">
+                    <NavigationPropertyBinding Path="status_order" Target="StatusOrder"/>
+                    <NavigationPropertyBinding Path="internal_status" Target="InternalStatus"/>
+                    <NavigationPropertyBinding Path="department_route" Target="Department"/>
+                    <NavigationPropertyBinding Path="city_route" Target="City"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="CargoOrders"/>
+                </EntitySet>
+                <EntitySet Name="StatusOrder" EntityType="CatalogService.StatusOrder"/>
+                <EntitySet Name="InternalStatus" EntityType="CatalogService.InternalStatus"/>
+                <EntitySet Name="Department" EntityType="CatalogService.Department">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Department"/>
+                </EntitySet>
+                <EntitySet Name="City" EntityType="CatalogService.City">
+                    <NavigationPropertyBinding Path="department" Target="Department"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="City"/>
+                </EntitySet>
+                <EntitySet Name="OrdersManagement" EntityType="CatalogService.OrdersManagement">
+                    <NavigationPropertyBinding Path="status_order" Target="StatusOrder"/>
+                    <NavigationPropertyBinding Path="internal_status" Target="InternalStatus"/>
+                    <NavigationPropertyBinding Path="department_route" Target="Department"/>
+                    <NavigationPropertyBinding Path="city_route" Target="City"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="OrdersManagement"/>
+                </EntitySet>
+                <EntitySet Name="VehiculeSecurityReview" EntityType="CatalogService.VehiculeSecurityReview">
+                    <NavigationPropertyBinding Path="status_order" Target="StatusOrder"/>
+                    <NavigationPropertyBinding Path="internal_status" Target="InternalStatus"/>
+                    <NavigationPropertyBinding Path="department_route" Target="Department"/>
+                    <NavigationPropertyBinding Path="city_route" Target="City"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="VehiculeSecurityReview"/>
+                </EntitySet>
+                <EntitySet Name="DispatchesForms" EntityType="CatalogService.DispatchesForms">
+                    <NavigationPropertyBinding Path="status_order" Target="StatusOrder"/>
+                    <NavigationPropertyBinding Path="internal_status" Target="InternalStatus"/>
+                    <NavigationPropertyBinding Path="department_route" Target="Department"/>
+                    <NavigationPropertyBinding Path="city_route" Target="City"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="DispatchesForms"/>
+                </EntitySet>
+                <EntitySet Name="ManagementApps" EntityType="CatalogService.ManagementApps">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ManagementApps"/>
+                </EntitySet>
+                <EntitySet Name="LooseBagNationalCargo" EntityType="CatalogService.LooseBagNationalCargo">
+                    <NavigationPropertyBinding Path="order" Target="CargoOrders"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="LooseBagNationalCargo"/>
+                </EntitySet>
+                <EntitySet Name="BigBagNationalCargo" EntityType="CatalogService.BigBagNationalCargo">
+                    <NavigationPropertyBinding Path="order" Target="CargoOrders"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="BigBagNationalCargo"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="CargoOrders">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="order_id" Type="Edm.Int32"/>
+                <NavigationProperty Name="status_order" Type="CatalogService.StatusOrder">
+                    <ReferentialConstraint Property="status_order_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="status_order_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="internal_status" Type="CatalogService.InternalStatus">
+                    <ReferentialConstraint Property="internal_status_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="internal_status_ID" Type="Edm.Int32"/>
+                <Property Name="cargo_date" Type="Edm.Date"/>
+                <NavigationProperty Name="department_route" Type="CatalogService.Department">
+                    <ReferentialConstraint Property="department_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="department_route_code" Type="Edm.Int32"/>
+                <NavigationProperty Name="city_route" Type="CatalogService.City">
+                    <ReferentialConstraint Property="city_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="city_route_code" Type="Edm.Int32"/>
+                <Property Name="vehicle_plate" Type="Edm.String" MaxLength="6"/>
+                <Property Name="trailer" Type="Edm.String" MaxLength="10"/>
+                <Property Name="capacity" Type="Edm.Int32"/>
+                <Property Name="id_card" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="driver_last_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="cell_phone_number" Type="Edm.String" MaxLength="12"/>
+                <Property Name="driving_license" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_photo" Type="Edm.Stream"/>
+                <Property Name="fileNameDriver_photo" Type="Edm.String"/>
+                <Property Name="pdf_id_card" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_id_card" Type="Edm.String"/>
+                <Property Name="pdf_license" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_license" Type="Edm.String"/>
+                <Property Name="pdf_social_security" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_social_security" Type="Edm.String"/>
+                <Property Name="sap_order" Type="Edm.String" MaxLength="10"/>
+                <Property Name="remarks" Type="Edm.String"/>
+                <Property Name="remarksOrdersManagement" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_in" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_in" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_in" Type="Edm.String"/>
+                <Property Name="remark_sticket_in" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_out" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_out" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_out" Type="Edm.String"/>
+                <Property Name="remark_sticket_out" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.CargoOrders"/>
+            </EntityType>
+            <EntityType Name="StatusOrder">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="10"/>
+                <Property Name="icon" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="InternalStatus">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="10"/>
+                <Property Name="icon" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="Department">
+                <Key>
+                    <PropertyRef Name="code"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Department"/>
+            </EntityType>
+            <EntityType Name="City">
+                <Key>
+                    <PropertyRef Name="code"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="department" Type="CatalogService.Department">
+                    <ReferentialConstraint Property="department_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="department_code" Type="Edm.Int32"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.City"/>
+            </EntityType>
+            <EntityType Name="OrdersManagement">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="order_id" Type="Edm.Int32"/>
+                <NavigationProperty Name="status_order" Type="CatalogService.StatusOrder">
+                    <ReferentialConstraint Property="status_order_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="status_order_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="internal_status" Type="CatalogService.InternalStatus">
+                    <ReferentialConstraint Property="internal_status_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="internal_status_ID" Type="Edm.Int32"/>
+                <Property Name="cargo_date" Type="Edm.Date"/>
+                <NavigationProperty Name="department_route" Type="CatalogService.Department">
+                    <ReferentialConstraint Property="department_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="department_route_code" Type="Edm.Int32"/>
+                <NavigationProperty Name="city_route" Type="CatalogService.City">
+                    <ReferentialConstraint Property="city_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="city_route_code" Type="Edm.Int32"/>
+                <Property Name="vehicle_plate" Type="Edm.String" MaxLength="6"/>
+                <Property Name="trailer" Type="Edm.String" MaxLength="10"/>
+                <Property Name="capacity" Type="Edm.Int32"/>
+                <Property Name="id_card" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="driver_last_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="cell_phone_number" Type="Edm.String" MaxLength="12"/>
+                <Property Name="driving_license" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_photo" Type="Edm.Stream"/>
+                <Property Name="fileNameDriver_photo" Type="Edm.String"/>
+                <Property Name="pdf_id_card" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_id_card" Type="Edm.String"/>
+                <Property Name="pdf_license" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_license" Type="Edm.String"/>
+                <Property Name="pdf_social_security" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_social_security" Type="Edm.String"/>
+                <Property Name="sap_order" Type="Edm.String" MaxLength="10"/>
+                <Property Name="remarks" Type="Edm.String"/>
+                <Property Name="remarksOrdersManagement" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_in" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_in" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_in" Type="Edm.String"/>
+                <Property Name="remark_sticket_in" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_out" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_out" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_out" Type="Edm.String"/>
+                <Property Name="remark_sticket_out" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.OrdersManagement"/>
+            </EntityType>
+            <EntityType Name="VehiculeSecurityReview">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="order_id" Type="Edm.Int32"/>
+                <NavigationProperty Name="status_order" Type="CatalogService.StatusOrder">
+                    <ReferentialConstraint Property="status_order_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="status_order_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="internal_status" Type="CatalogService.InternalStatus">
+                    <ReferentialConstraint Property="internal_status_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="internal_status_ID" Type="Edm.Int32"/>
+                <Property Name="cargo_date" Type="Edm.Date"/>
+                <NavigationProperty Name="department_route" Type="CatalogService.Department">
+                    <ReferentialConstraint Property="department_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="department_route_code" Type="Edm.Int32"/>
+                <NavigationProperty Name="city_route" Type="CatalogService.City">
+                    <ReferentialConstraint Property="city_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="city_route_code" Type="Edm.Int32"/>
+                <Property Name="vehicle_plate" Type="Edm.String" MaxLength="6"/>
+                <Property Name="trailer" Type="Edm.String" MaxLength="10"/>
+                <Property Name="capacity" Type="Edm.Int32"/>
+                <Property Name="id_card" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="driver_last_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="cell_phone_number" Type="Edm.String" MaxLength="12"/>
+                <Property Name="driving_license" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_photo" Type="Edm.Stream"/>
+                <Property Name="fileNameDriver_photo" Type="Edm.String"/>
+                <Property Name="pdf_id_card" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_id_card" Type="Edm.String"/>
+                <Property Name="pdf_license" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_license" Type="Edm.String"/>
+                <Property Name="pdf_social_security" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_social_security" Type="Edm.String"/>
+                <Property Name="sap_order" Type="Edm.String" MaxLength="10"/>
+                <Property Name="remarks" Type="Edm.String"/>
+                <Property Name="remarksOrdersManagement" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_in" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_in" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_in" Type="Edm.String"/>
+                <Property Name="remark_sticket_in" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_out" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_out" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_out" Type="Edm.String"/>
+                <Property Name="remark_sticket_out" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.VehiculeSecurityReview"/>
+            </EntityType>
+            <EntityType Name="DispatchesForms">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="order_id" Type="Edm.Int32"/>
+                <NavigationProperty Name="status_order" Type="CatalogService.StatusOrder">
+                    <ReferentialConstraint Property="status_order_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="status_order_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="internal_status" Type="CatalogService.InternalStatus">
+                    <ReferentialConstraint Property="internal_status_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="internal_status_ID" Type="Edm.Int32"/>
+                <Property Name="cargo_date" Type="Edm.Date"/>
+                <NavigationProperty Name="department_route" Type="CatalogService.Department">
+                    <ReferentialConstraint Property="department_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="department_route_code" Type="Edm.Int32"/>
+                <NavigationProperty Name="city_route" Type="CatalogService.City">
+                    <ReferentialConstraint Property="city_route_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="city_route_code" Type="Edm.Int32"/>
+                <Property Name="vehicle_plate" Type="Edm.String" MaxLength="6"/>
+                <Property Name="trailer" Type="Edm.String" MaxLength="10"/>
+                <Property Name="capacity" Type="Edm.Int32"/>
+                <Property Name="id_card" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="driver_last_name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="cell_phone_number" Type="Edm.String" MaxLength="12"/>
+                <Property Name="driving_license" Type="Edm.String" MaxLength="10"/>
+                <Property Name="driver_photo" Type="Edm.Stream"/>
+                <Property Name="fileNameDriver_photo" Type="Edm.String"/>
+                <Property Name="pdf_id_card" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_id_card" Type="Edm.String"/>
+                <Property Name="pdf_license" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_license" Type="Edm.String"/>
+                <Property Name="pdf_social_security" Type="Edm.Stream"/>
+                <Property Name="fileNamePdf_social_security" Type="Edm.String"/>
+                <Property Name="sap_order" Type="Edm.String" MaxLength="10"/>
+                <Property Name="remarks" Type="Edm.String"/>
+                <Property Name="remarksOrdersManagement" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_in" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_in" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_in" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_in" Type="Edm.String"/>
+                <Property Name="remark_sticket_in" Type="Edm.String"/>
+                <Property Name="vehicle_cabin_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_engine_out" Type="Edm.Boolean"/>
+                <Property Name="vehicle_body_out" Type="Edm.Boolean"/>
+                <Property Name="scale_ticket_out" Type="Edm.Stream"/>
+                <Property Name="fileNameScale_ticket_out" Type="Edm.String"/>
+                <Property Name="remark_sticket_out" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.DispatchesForms"/>
+            </EntityType>
+            <EntityType Name="ManagementApps">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="description"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" Nullable="false"/>
+                <Property Name="Text01" Type="Edm.String"/>
+                <Property Name="Text02" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.ManagementApps"/>
+            </EntityType>
+            <EntityType Name="LooseBagNationalCargo">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="order_ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="order" Type="CatalogService.CargoOrders">
+                    <ReferentialConstraint Property="order_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="order_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="status_indicator" Type="Edm.String" MaxLength="50"/>
+                <Property Name="shift_ID" Type="Edm.Guid"/>
+                <Property Name="image01" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image02" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image03" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image04" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image05" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image06" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer01" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer02" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer03" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer04" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer05" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer06" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer07" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer08" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer09" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer10" Type="Edm.String" MaxLength="1"/>
+                <Property Name="driver_signature" Type="Edm.String" MaxLength="50"/>
+                <Property Name="driver_signature_date" Type="Edm.DateTimeOffset"/>
+                <Property Name="auxiliary_signature" Type="Edm.String" MaxLength="50"/>
+                <Property Name="auxiliary_signature_date" Type="Edm.DateTimeOffset"/>
+                <Property Name="supervisor_signature" Type="Edm.String" MaxLength="50"/>
+                <Property Name="supervisor_signature_date" Type="Edm.DateTimeOffset"/>
+                <Property Name="remarks" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.LooseBagNationalCargo"/>
+            </EntityType>
+            <EntityType Name="BigBagNationalCargo">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="order_ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="order" Type="CatalogService.CargoOrders">
+                    <ReferentialConstraint Property="order_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="order_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="status_indicator" Type="Edm.String" MaxLength="50"/>
+                <Property Name="shift_ID" Type="Edm.Guid"/>
+                <Property Name="image01" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image02" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image03" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image04" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image05" Type="Edm.String" MaxLength="1"/>
+                <Property Name="image06" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer01" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer02" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer03" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer04" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer05" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer06" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer07" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer08" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer09" Type="Edm.String" MaxLength="1"/>
+                <Property Name="answer10" Type="Edm.String" MaxLength="1"/>
+                <Property Name="driver_signature" Type="Edm.String" MaxLength="50"/>
+                <Property Name="driver_signature_date" Type="Edm.DateTimeOffset"/>
+                <Property Name="auxiliary_signature" Type="Edm.String" MaxLength="50"/>
+                <Property Name="auxiliary_signature_date" Type="Edm.DateTimeOffset"/>
+                <Property Name="supervisor_signature" Type="Edm.String" MaxLength="50"/>
+                <Property Name="supervisor_signature_date" Type="Edm.DateTimeOffset"/>
+                <Property Name="remarks" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.BigBagNationalCargo"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.CargoOrders"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.CargoOrders"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Department"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Department"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.City"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.City"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.OrdersManagement"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.OrdersManagement"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.VehiculeSecurityReview"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.DispatchesForms"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.DispatchesForms"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.ManagementApps"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.ManagementApps"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.LooseBagNationalCargo"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.LooseBagNationalCargo"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.BigBagNationalCargo"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.BigBagNationalCargo"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.CargoOrders"/>
+                <ReturnType Type="CatalogService.CargoOrders"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Department"/>
+                <ReturnType Type="CatalogService.Department"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.City"/>
+                <ReturnType Type="CatalogService.City"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.OrdersManagement"/>
+                <ReturnType Type="CatalogService.OrdersManagement"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+                <ReturnType Type="CatalogService.VehiculeSecurityReview"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.DispatchesForms"/>
+                <ReturnType Type="CatalogService.DispatchesForms"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.ManagementApps"/>
+                <ReturnType Type="CatalogService.ManagementApps"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.LooseBagNationalCargo"/>
+                <ReturnType Type="CatalogService.LooseBagNationalCargo"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.BigBagNationalCargo"/>
+                <ReturnType Type="CatalogService.BigBagNationalCargo"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.CargoOrders"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.CargoOrders"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Department"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Department"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.City"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.City"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.OrdersManagement"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.OrdersManagement"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.VehiculeSecurityReview"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.DispatchesForms"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.DispatchesForms"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.ManagementApps"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.ManagementApps"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.LooseBagNationalCargo"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.LooseBagNationalCargo"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.BigBagNationalCargo"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.BigBagNationalCargo"/>
+            </Action>
+            <Action Name="orderRejectAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.OrdersManagement"/>
+                <Parameter Name="input" Type="Edm.String"/>
+            </Action>
+            <Action Name="orderApproveAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.OrdersManagement"/>
+            </Action>
+            <Action Name="reviewInRejectAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+                <Parameter Name="input" Type="Edm.String"/>
+            </Action>
+            <Action Name="reviewInApproveAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+            </Action>
+            <Action Name="reviewOutRejectAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+                <Parameter Name="input" Type="Edm.String"/>
+            </Action>
+            <Action Name="reviewOutApproveAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.VehiculeSecurityReview"/>
+            </Action>
+            <Action Name="formsAction" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DispatchesForms"/>
+            </Action>
+            <Annotations Target="CatalogService.EntityContainer/CargoOrders">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.CargoOrders/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="CatalogService.CargoOrders/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="CatalogService.CargoOrders/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="CatalogService.CargoOrders/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/ID">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/order_id">
+                                        <Annotation Term="Validation.Minimum" Int="1"/>
+                                        <Annotation Term="Validation.Maximum" Int="9999999999"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/driver_photo">
+                                        <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                        <Annotation Term="Core.ContentDisposition">
+                                            <Record Type="Core.ContentDispositionType">
+                                                <PropertyValue Property="Filename" Path="fileNameDriver_photo"/>
+                                                <PropertyValue Property="Type" String="inline"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/pdf_id_card">
+                                        <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                        <Annotation Term="Core.ContentDisposition">
+                                            <Record Type="Core.ContentDispositionType">
+                                                <PropertyValue Property="Filename" Path="fileNamePdf_id_card"/>
+                                                <PropertyValue Property="Type" String="inline"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/pdf_license">
+                                        <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                        <Annotation Term="Core.ContentDisposition">
+                                            <Record Type="Core.ContentDispositionType">
+                                                <PropertyValue Property="Filename" Path="fileNamePdf_license"/>
+                                                <PropertyValue Property="Type" String="inline"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/pdf_social_security">
+                                        <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                        <Annotation Term="Core.ContentDisposition">
+                                            <Record Type="Core.ContentDispositionType">
+                                                <PropertyValue Property="Filename" Path="fileNamePdf_social_security"/>
+                                                <PropertyValue Property="Type" String="inline"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/scale_ticket_in">
+                                        <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                        <Annotation Term="Core.ContentDisposition">
+                                            <Record Type="Core.ContentDispositionType">
+                                                <PropertyValue Property="Filename" Path="fileNameScale_ticket_in"/>
+                                                <PropertyValue Property="Type" String="inline"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/scale_ticket_out">
+                                        <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                        <Annotation Term="Core.ContentDisposition">
+                                            <Record Type="Core.ContentDispositionType">
+                                                <PropertyValue Property="Filename" Path="fileNameScale_ticket_out"/>
+                                                <PropertyValue Property="Type" String="inline"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/IsActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/HasActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/HasDraftEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.CargoOrders/DraftAdministrativeData">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.StatusOrder/ID">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                        <Annotation Term="Common.Text" Path="description">
+                                            <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.StatusOrder/description">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.StatusOrder/icon">
+                                        <Annotation Term="UI.IsImageURL" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.InternalStatus/ID">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                        <Annotation Term="Common.Text" Path="description">
+                                            <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.InternalStatus/description">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.EntityContainer/Department">
+                                        <Annotation Term="Common.DraftRoot">
+                                            <Record Type="Common.DraftRootType">
+                                                <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.Department/createdAt">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                        </Annotations>
+                                        <Annotations Target="CatalogService.Department/createdBy">
+                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                </Annotations>
+                                                <Annotations Target="CatalogService.Department/modifiedAt">
+                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="CatalogService.Department/modifiedBy">
+                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.Department/code">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                <Annotation Term="Common.Text" Path="description">
+                                                                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                                                                </Annotation>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.Department/description">
+                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.Department/IsActiveEntity">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.Department/HasActiveEntity">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.Department/HasDraftEntity">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.Department/DraftAdministrativeData">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.EntityContainer/City">
+                                                                <Annotation Term="Common.DraftRoot">
+                                                                    <Record Type="Common.DraftRootType">
+                                                                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                    </Record>
+                                                                </Annotation>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.City/createdAt">
+                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="CatalogService.City/createdBy">
+                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="CatalogService.City/modifiedAt">
+                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                            </Annotations>
+                                                                            <Annotations Target="CatalogService.City/modifiedBy">
+                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.City/code">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                        <Annotation Term="Common.Text" Path="description">
+                                                                                            <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                                                                                        </Annotation>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.City/description">
+                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.City/IsActiveEntity">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.City/HasActiveEntity">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.City/HasDraftEntity">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.City/DraftAdministrativeData">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.EntityContainer/OrdersManagement">
+                                                                                        <Annotation Term="Common.DraftRoot">
+                                                                                            <Record Type="Common.DraftRootType">
+                                                                                                <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                                                <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                                                <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                                            </Record>
+                                                                                        </Annotation>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.OrdersManagement/createdAt">
+                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                        </Annotations>
+                                                                                        <Annotations Target="CatalogService.OrdersManagement/createdBy">
+                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                </Annotations>
+                                                                                                <Annotations Target="CatalogService.OrdersManagement/modifiedAt">
+                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                    </Annotations>
+                                                                                                    <Annotations Target="CatalogService.OrdersManagement/modifiedBy">
+                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/ID">
+                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/order_id">
+                                                                                                                <Annotation Term="Validation.Minimum" Int="1"/>
+                                                                                                                <Annotation Term="Validation.Maximum" Int="9999999999"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/driver_photo">
+                                                                                                                <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                <Annotation Term="Core.ContentDisposition">
+                                                                                                                    <Record Type="Core.ContentDispositionType">
+                                                                                                                        <PropertyValue Property="Filename" Path="fileNameDriver_photo"/>
+                                                                                                                        <PropertyValue Property="Type" String="inline"/>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/pdf_id_card">
+                                                                                                                <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                <Annotation Term="Core.ContentDisposition">
+                                                                                                                    <Record Type="Core.ContentDispositionType">
+                                                                                                                        <PropertyValue Property="Filename" Path="fileNamePdf_id_card"/>
+                                                                                                                        <PropertyValue Property="Type" String="inline"/>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/pdf_license">
+                                                                                                                <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                <Annotation Term="Core.ContentDisposition">
+                                                                                                                    <Record Type="Core.ContentDispositionType">
+                                                                                                                        <PropertyValue Property="Filename" Path="fileNamePdf_license"/>
+                                                                                                                        <PropertyValue Property="Type" String="inline"/>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/pdf_social_security">
+                                                                                                                <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                <Annotation Term="Core.ContentDisposition">
+                                                                                                                    <Record Type="Core.ContentDispositionType">
+                                                                                                                        <PropertyValue Property="Filename" Path="fileNamePdf_social_security"/>
+                                                                                                                        <PropertyValue Property="Type" String="inline"/>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/scale_ticket_in">
+                                                                                                                <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                <Annotation Term="Core.ContentDisposition">
+                                                                                                                    <Record Type="Core.ContentDispositionType">
+                                                                                                                        <PropertyValue Property="Filename" Path="fileNameScale_ticket_in"/>
+                                                                                                                        <PropertyValue Property="Type" String="inline"/>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/scale_ticket_out">
+                                                                                                                <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                <Annotation Term="Core.ContentDisposition">
+                                                                                                                    <Record Type="Core.ContentDispositionType">
+                                                                                                                        <PropertyValue Property="Filename" Path="fileNameScale_ticket_out"/>
+                                                                                                                        <PropertyValue Property="Type" String="inline"/>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/IsActiveEntity">
+                                                                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/HasActiveEntity">
+                                                                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/HasDraftEntity">
+                                                                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.OrdersManagement/DraftAdministrativeData">
+                                                                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="CatalogService.orderRejectAction(CatalogService.OrdersManagement)/input">
+                                                                                                                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                                                                                                                <Annotation Term="Common.Label" String="{i18n>Note}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="CatalogService.EntityContainer/VehiculeSecurityReview">
+                                                                                                                    <Annotation Term="Common.DraftRoot">
+                                                                                                                        <Record Type="Common.DraftRootType">
+                                                                                                                            <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                                                                            <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                                                                            <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                                                                        </Record>
+                                                                                                                    </Annotation>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="CatalogService.VehiculeSecurityReview/createdAt">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                    </Annotations>
+                                                                                                                    <Annotations Target="CatalogService.VehiculeSecurityReview/createdBy">
+                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                            </Annotations>
+                                                                                                                            <Annotations Target="CatalogService.VehiculeSecurityReview/modifiedAt">
+                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                </Annotations>
+                                                                                                                                <Annotations Target="CatalogService.VehiculeSecurityReview/modifiedBy">
+                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/ID">
+                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/order_id">
+                                                                                                                                            <Annotation Term="Validation.Minimum" Int="1"/>
+                                                                                                                                            <Annotation Term="Validation.Maximum" Int="9999999999"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/driver_photo">
+                                                                                                                                            <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNameDriver_photo"/>
+                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                </Record>
+                                                                                                                                            </Annotation>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/pdf_id_card">
+                                                                                                                                            <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNamePdf_id_card"/>
+                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                </Record>
+                                                                                                                                            </Annotation>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/pdf_license">
+                                                                                                                                            <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNamePdf_license"/>
+                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                </Record>
+                                                                                                                                            </Annotation>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/pdf_social_security">
+                                                                                                                                            <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNamePdf_social_security"/>
+                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                </Record>
+                                                                                                                                            </Annotation>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/scale_ticket_in">
+                                                                                                                                            <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNameScale_ticket_in"/>
+                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                </Record>
+                                                                                                                                            </Annotation>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/scale_ticket_out">
+                                                                                                                                            <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNameScale_ticket_out"/>
+                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                </Record>
+                                                                                                                                            </Annotation>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/IsActiveEntity">
+                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/HasActiveEntity">
+                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/HasDraftEntity">
+                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.VehiculeSecurityReview/DraftAdministrativeData">
+                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.reviewInRejectAction(CatalogService.VehiculeSecurityReview)/input">
+                                                                                                                                            <Annotation Term="UI.MultiLineText" Bool="true"/>
+                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Note}"/>
+                                                                                                                                            </Annotations>
+                                                                                                                                            <Annotations Target="CatalogService.reviewOutRejectAction(CatalogService.VehiculeSecurityReview)/input">
+                                                                                                                                                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Note}"/>
+                                                                                                                                                </Annotations>
+                                                                                                                                                <Annotations Target="CatalogService.EntityContainer/DispatchesForms">
+                                                                                                                                                    <Annotation Term="Common.DraftRoot">
+                                                                                                                                                        <Record Type="Common.DraftRootType">
+                                                                                                                                                            <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                                                                                                            <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                                                                                                            <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                                                                                                        </Record>
+                                                                                                                                                    </Annotation>
+                                                                                                                                                </Annotations>
+                                                                                                                                                <Annotations Target="CatalogService.DispatchesForms/createdAt">
+                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                    </Annotations>
+                                                                                                                                                    <Annotations Target="CatalogService.DispatchesForms/createdBy">
+                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                            </Annotations>
+                                                                                                                                                            <Annotations Target="CatalogService.DispatchesForms/modifiedAt">
+                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                </Annotations>
+                                                                                                                                                                <Annotations Target="CatalogService.DispatchesForms/modifiedBy">
+                                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/ID">
+                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/order_id">
+                                                                                                                                                                            <Annotation Term="Validation.Minimum" Int="1"/>
+                                                                                                                                                                            <Annotation Term="Validation.Maximum" Int="9999999999"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/driver_photo">
+                                                                                                                                                                            <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNameDriver_photo"/>
+                                                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/pdf_id_card">
+                                                                                                                                                                            <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNamePdf_id_card"/>
+                                                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/pdf_license">
+                                                                                                                                                                            <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNamePdf_license"/>
+                                                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/pdf_social_security">
+                                                                                                                                                                            <Annotation Term="Core.MediaType" String="file/pdf"/>
+                                                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNamePdf_social_security"/>
+                                                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/scale_ticket_in">
+                                                                                                                                                                            <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNameScale_ticket_in"/>
+                                                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/scale_ticket_out">
+                                                                                                                                                                            <Annotation Term="Core.MediaType" String="file/jpg"/>
+                                                                                                                                                                            <Annotation Term="Core.ContentDisposition">
+                                                                                                                                                                                <Record Type="Core.ContentDispositionType">
+                                                                                                                                                                                    <PropertyValue Property="Filename" Path="fileNameScale_ticket_out"/>
+                                                                                                                                                                                    <PropertyValue Property="Type" String="inline"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/IsActiveEntity">
+                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/HasActiveEntity">
+                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/HasDraftEntity">
+                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.DispatchesForms/DraftAdministrativeData">
+                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.EntityContainer/ManagementApps">
+                                                                                                                                                                            <Annotation Term="Common.DraftRoot">
+                                                                                                                                                                                <Record Type="Common.DraftRootType">
+                                                                                                                                                                                    <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                                                                                                                                    <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                                                                                                                                    <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                                                                                                                                </Record>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="CatalogService.ManagementApps/createdAt">
+                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                                            </Annotations>
+                                                                                                                                                                            <Annotations Target="CatalogService.ManagementApps/createdBy">
+                                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                    <Annotations Target="CatalogService.ManagementApps/modifiedAt">
+                                                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                        <Annotations Target="CatalogService.ManagementApps/modifiedBy">
+                                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.ManagementApps/ID">
+                                                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.ManagementApps/IsActiveEntity">
+                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.ManagementApps/HasActiveEntity">
+                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.ManagementApps/HasDraftEntity">
+                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.ManagementApps/DraftAdministrativeData">
+                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.EntityContainer/LooseBagNationalCargo">
+                                                                                                                                                                                                    <Annotation Term="Common.DraftRoot">
+                                                                                                                                                                                                        <Record Type="Common.DraftRootType">
+                                                                                                                                                                                                            <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                                                                                                                                                            <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                                                                                                                                                            <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                                                                                                                                                        </Record>
+                                                                                                                                                                                                    </Annotation>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="CatalogService.LooseBagNationalCargo/createdAt">
+                                                                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                    <Annotations Target="CatalogService.LooseBagNationalCargo/createdBy">
+                                                                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                            <Annotations Target="CatalogService.LooseBagNationalCargo/modifiedAt">
+                                                                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                <Annotations Target="CatalogService.LooseBagNationalCargo/modifiedBy">
+                                                                                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.LooseBagNationalCargo/ID">
+                                                                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.LooseBagNationalCargo/IsActiveEntity">
+                                                                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.LooseBagNationalCargo/HasActiveEntity">
+                                                                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.LooseBagNationalCargo/HasDraftEntity">
+                                                                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.LooseBagNationalCargo/DraftAdministrativeData">
+                                                                                                                                                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.EntityContainer/BigBagNationalCargo">
+                                                                                                                                                                                                                            <Annotation Term="Common.DraftRoot">
+                                                                                                                                                                                                                                <Record Type="Common.DraftRootType">
+                                                                                                                                                                                                                                    <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                                                                                                                                                                                                                                    <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                                                                                                                                                                                                                                    <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                                                                                                                                                                                                                                </Record>
+                                                                                                                                                                                                                            </Annotation>
+                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                        <Annotations Target="CatalogService.BigBagNationalCargo/createdAt">
+                                                                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                            <Annotations Target="CatalogService.BigBagNationalCargo/createdBy">
+                                                                                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                    <Annotations Target="CatalogService.BigBagNationalCargo/modifiedAt">
+                                                                                                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                        <Annotations Target="CatalogService.BigBagNationalCargo/modifiedBy">
+                                                                                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                <Annotations Target="CatalogService.BigBagNationalCargo/ID">
+                                                                                                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                <Annotations Target="CatalogService.BigBagNationalCargo/IsActiveEntity">
+                                                                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                <Annotations Target="CatalogService.BigBagNationalCargo/HasActiveEntity">
+                                                                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                <Annotations Target="CatalogService.BigBagNationalCargo/HasDraftEntity">
+                                                                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                <Annotations Target="CatalogService.BigBagNationalCargo/DraftAdministrativeData">
+                                                                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                <Annotations Target="CatalogService.DraftAdministrativeData">
+                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                    <Annotations Target="CatalogService.DraftAdministrativeData/DraftUUID">
+                                                                                                                                                                                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                        <Annotations Target="CatalogService.DraftAdministrativeData/CreationDateTime">
+                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                            <Annotations Target="CatalogService.DraftAdministrativeData/CreatedByUser">
+                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                                                                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                    <Annotations Target="CatalogService.DraftAdministrativeData/LastChangeDateTime">
+                                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                                        <Annotations Target="CatalogService.DraftAdministrativeData/LastChangedByUser">
+                                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                                            <Annotations Target="CatalogService.DraftAdministrativeData/InProcessByUser">
+                                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                                <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                                                                                                                                                                                                                                                    <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                                </Schema>
+                                                                                                                                                                                                                                                                            </edmx:DataServices>
+                                                                                                                                                                                                                                                                        </edmx:Edmx>

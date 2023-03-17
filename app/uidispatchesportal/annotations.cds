@@ -22,19 +22,13 @@ annotate service.CargoOrders with {
 
 }
 
-annotate service.CargoOrders with @(
-    UI.PresentationVariant :{
-        SortOrder : [
-            {
-                Property : order_id,
-                Descending : true,
-            },
-        ],
-        Visualizations : [
-            '@UI.LineItem',
-        ],
-    },
-);
+annotate service.CargoOrders with @(UI.PresentationVariant : {
+    SortOrder      : [{
+        Property   : order_id,
+        Descending : true,
+    }, ],
+    Visualizations : ['@UI.LineItem', ],
+}, );
 
 annotate service.CargoOrders with @(UI : {
 
@@ -49,13 +43,12 @@ annotate service.CargoOrders with @(UI : {
             $Type : 'UI.DataField',
             Value : status_order.description
         },
-        ImageUrl       : status_order.ID,
+        ImageUrl       : status_order.icon,
     },
 
-    SelectionFields      : [status_order.description],
+    SelectionFields      : [status_order_ID],
 
     LineItem             : [
-        // {Value : status_order.icon},
         {
             Label       : '{i18n>Status}',
             Value       : status_order.description,
@@ -149,84 +142,87 @@ annotate service.CargoOrders with {
     });
 };
 
-
-annotate service.Department with {
-    code        @(
-        UI     : {Hidden : true},
-        Common : {Text : {
-            $value                 : description,
-            ![@UI.TextArrangement] : #TextOnly,
-        }}
-    );
-    description @(UI : {HiddenFilter : true});
-}
+//Help Value City
+// annotate service.CargoOrders with {
+//     city_route @(Common : {
+//         Text            : city_route.description,
+//         TextArrangement : #TextOnly,
+//         ValueList       : {
+//             $Type          : 'Common.ValueListType',
+//             Label          : '{i18n>City_route}',
+//             CollectionPath : 'City',
+//             Parameters     : [
+//                 {
+//                     $Type             : 'Common.ValueListParameterInOut',
+//                     LocalDataProperty : city_route_code,
+//                     ValueListProperty : 'code'
+//                 },
+//                 {
+//                     $Type             : 'Common.ValueListParameterDisplayOnly',
+//                     ValueListProperty : 'description'
+//                 }
+//             ]
+//         }
+//     });
+// };
 
 //Help Value City
 annotate service.CargoOrders with {
     city_route @(Common : {
-        Text            : city_route.description,
-        TextArrangement : #TextOnly,
-        ValueList       : {
-            $Type          : 'Common.ValueListType',
+        Text                     : city_route.description,
+        TextArrangement          : #TextFirst,
+        ValueListWithFixedValues : true,
+        ValueList                : {
             Label          : '{i18n>City_route}',
             CollectionPath : 'City',
             Parameters     : [
                 {
                     $Type             : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : city_route_code,
-                    ValueListProperty : 'code'
+                    ValueListProperty : 'code',
+                    LocalDataProperty : city_route_code
                 },
                 {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'description'
-                }
+                    $Type             : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'description',
+                    LocalDataProperty : city_route.description,
+                },
+                {
+                    $Type             : 'Common.ValueListParameterFilterOnly',
+                    ValueListProperty : 'department_code',
+                },
+                {
+                    $Type             : 'Common.ValueListParameterIn',
+                    LocalDataProperty : department_route_code,
+                    ValueListProperty : 'department_code',
+                },
+
             ]
         }
     });
 };
 
-
-// city_route @(Common : {
-//     Text                     : city_route.description,
-//     TextArrangement          : #TextFirst,
-//     ValueListWithFixedValues : true,
-//     ValueList                : {
-//         Label          : '{i18n>City_route}',
-//         CollectionPath : 'City',
-//         Parameters     : [
-//             {
-//                 $Type             : 'Common.ValueListParameterInOut',
-//                 ValueListProperty : 'code',
-//                 LocalDataProperty : city_route_code
-//             },
-//             {
-//                 $Type             : 'Common.ValueListParameterOut',
-//                 ValueListProperty : 'description',
-//                 LocalDataProperty : city_route.description,
-//             },
-//             //To only show the connected values
-//             {
-//                 $Type             : 'Common.ValueListParameterFilterOnly',
-//                 ValueListProperty : 'department_code',
-//             },
-//             {
-//                 $Type             : 'Common.ValueListParameterIn', //Input parameter used for filtering
-//                 LocalDataProperty : department_route_code,
-//                 ValueListProperty : 'department_code',
-//             },
-
-//         ]
-//     }
-// });
-
-
-annotate service.City with {
-    code        @(
-        UI     : {Hidden : true},
-        Common : {Text : {
-            $value                 : description,
+//Help value Status
+annotate service.CargoOrders with {
+    status_order     @(Common : {
+        Text      : {
+            $value                 : status_order.description,
             ![@UI.TextArrangement] : #TextOnly,
-        }}
-    );
-    description @(UI : {HiddenFilter : true});
+        },
+        ValueList : {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'StatusOrder',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status_order_ID,
+                    ValueListProperty : 'ID'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status_order_ID,
+                    ValueListProperty : 'description'
+                }
+            ]
+        },
+    });
 };
