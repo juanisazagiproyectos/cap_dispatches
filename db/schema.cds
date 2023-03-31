@@ -35,18 +35,22 @@ entity CargoOrders                                 @(cds.autoexpose) : managed {
         sap_order                   : String(10);
         remarks                     : LargeString;
         remarksOrdersManagement     : LargeString;
+        reasonOrdersManagement      : Association to RejectionReasons;
         vehicle_cabin_in            : Boolean;
         vehicle_engine_in           : Boolean;
         vehicle_body_in             : Boolean;
         scale_ticket_in             : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket_in      @Core.ContentDisposition.Type : 'inline';
         fileNameScale_ticket_in     : String;
-        remark_sticket_in           : LargeString;
+        remark_sticket_in           : LargeString  @UI.MultiLineText;
+        reason_in                   : Association to RejectionReasons;
+        check_in                    : Boolean default false;
         vehicle_cabin_out           : Boolean;
         vehicle_engine_out          : Boolean;
         vehicle_body_out            : Boolean;
         scale_ticket_out            : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameScale_ticket_out     @Core.ContentDisposition.Type : 'inline';
         fileNameScale_ticket_out    : String;
-        remark_sticket_out          : LargeString;
+        remark_sticket_out          : LargeString  @UI.MultiLineText;
+        reason_out                  : Association to RejectionReasons;
 };
 
 entity Department : managed {
@@ -62,15 +66,22 @@ entity City : managed {
 
 entity StatusOrder : cuid {
     key ID          : Integer;
-        description : String(10) @readonly;
-        icon        : String(50)
+        description : String(50) @readonly;
+        icon        : String(100)
 };
 
 entity InternalStatus : cuid {
+    key ID                  : Integer;
+        description         : String(50)   @readonly;
+        icon                : String;
+        custom_icon         : LargeBinary  @Core.MediaType : 'file/jpg'  @Core.ContentDisposition.Filename : fileNameCustom_icon  @Core.ContentDisposition.Type : 'inline';
+        fileNameCustom_icon : String;
+};
+
+entity RejectionReasons : cuid {
     key ID          : Integer;
-        description : String(10) @readonly;
-        icon        : String(50)
-}
+        description : String;
+};
 
 entity Driver : managed {
     key id_card              : String(10);

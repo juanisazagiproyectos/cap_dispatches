@@ -18,19 +18,21 @@ annotate service.VehiculeSecurityReview with {
     driver_photo             @title : '{i18n>Driver_photo}'         @readonly;
     pdf_license              @title : '{i18n>PDF_license}'          @readonly;
     pdf_social_security      @title : '{i18n>PDF_social_security}'  @readonly;
-    remarks                  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
+    remarks                  @title : '{i18n>Remarks}'              @readonly;
     sap_order                @title : '{i18n>sap_order}'            @readonly;
-    remarksOrdersManagement  @UI.MultiLineText                      @title : '{i18n>Remarks}'  @readonly;
+    remarksOrdersManagement  @title : '{i18n>Remarks}'              @readonly;
     vehicle_cabin_in         @title : '{i18n>cabin}'                @mandatory;
     vehicle_engine_in        @title : '{i18n>engine}'               @mandatory;
     vehicle_body_in          @title : '{i18n>body}'                 @mandatory;
     scale_ticket_in          @title : '{i18n>ticket}'               @mandatory;
-    remark_sticket_in        @UI.MultiLineText                      @title : '{i18n>Remarks}';
-    vehicle_cabin_out        @title : '{i18n>cabin}'                @mandatory;
-    vehicle_engine_out       @title : '{i18n>engine}'               @mandatory;
-    vehicle_body_out         @title : '{i18n>body}'                 @mandatory;
-    scale_ticket_out         @title : '{i18n>ticket}'               @mandatory;
-    remark_sticket_out       @UI.MultiLineText                      @title : '{i18n>Remarks}';
+    reason_in                @title : '{i18n>reason}'               @readonly;
+    remark_sticket_in        @title : '{i18n>Remarks}';//              @UI.MultiLineText;
+    vehicle_cabin_out        @title : '{i18n>cabin}';
+    vehicle_engine_out       @title : '{i18n>engine}';
+    vehicle_body_out         @title : '{i18n>body}';
+    scale_ticket_out         @title : '{i18n>ticket}';
+    reason_out               @title : '{i18n>reason}'               @readonly;
+    remark_sticket_out       @title : '{i18n>Remarks}';
 
 };
 
@@ -111,42 +113,80 @@ annotate service.VehiculeSecurityReview with @(UI : {
         {Value : vehicle_engine_in},
         {Value : vehicle_body_in},
         {Value : scale_ticket_in},
+        {
+            Value                   : reason_in.description,
+            Label                   : '{i18n>reason}',
+            ![@Common.FieldControl] : {$edmJson : {$If : [
+                {$Eq : [
+                    {$Path : 'HasActiveEntity'},
+                    false
+                ]},
+                3,
+                1
+            ]}}
+        },
         {Value : remark_sticket_in},
         {
             $Type             : 'UI.DataFieldForAction',
             Action            : 'CatalogService.reviewInApproveAction',
             Label             : '{i18n>Approve}',
             ![@UI.Emphasized] : true,
+            ![@UI.Hidden]     : {$edmJson : {$Eq : [
+                {$Path : 'IsActiveEntity'},
+                false
+            ]}}
         },
         {
             $Type             : 'UI.DataFieldForAction',
             Action            : 'CatalogService.reviewInRejectAction',
             Label             : '{i18n>Reject}',
             ![@UI.Emphasized] : true,
+            ![@UI.Hidden]     : {$edmJson : {$Eq : [
+                {$Path : 'IsActiveEntity'},
+                false
+            ]}}
         }
 
     ]},
 
     FieldGroup #Output_review : {Data : [
-        {Value : vehicle_cabin_out},
-        {Value : vehicle_engine_out},
-        {Value : vehicle_body_out},
-        {Value : scale_ticket_out},
-        {Value : remark_sticket_out},
+        {Value : vehicle_cabin_out, },
+        {Value : vehicle_engine_out, },
+        {Value : vehicle_body_out, },
+        {Value : scale_ticket_out, },
+        {
+            Value                   : reason_out.description,
+            Label                   : '{i18n>reason}',
+            ![@Common.FieldControl] : {$edmJson : {$If : [
+                {$Eq : [
+                    {$Path : 'HasActiveEntity'},
+                    false
+                ]},
+                3,
+                1
+            ]}},
+        },
+        {Value : remark_sticket_out, },
         {
             $Type             : 'UI.DataFieldForAction',
             Action            : 'CatalogService.reviewOutApproveAction',
             Label             : '{i18n>Approve}',
             ![@UI.Emphasized] : true,
+            ![@UI.Hidden]     : {$edmJson : {$Eq : [
+                {$Path : 'IsActiveEntity'},
+                false
+            ]}}
         },
         {
             $Type             : 'UI.DataFieldForAction',
             Action            : 'CatalogService.reviewOutRejectAction',
             Label             : '{i18n>Reject}',
             ![@UI.Emphasized] : true,
+            ![@UI.Hidden]     : {$edmJson : {$Eq : [
+                {$Path : 'IsActiveEntity'},
+                false
+            ]}}
         }
-
-
     ]},
     Facets                    : [
         {
@@ -185,9 +225,13 @@ annotate service.VehiculeSecurityReview with @(UI : {
             Target : '@UI.FieldGroup#Input_review'
         },
         {
-            $Type  : 'UI.ReferenceFacet',
-            Label  : '{i18n>output_review}',
-            Target : '@UI.FieldGroup#Output_review'
+            $Type         : 'UI.ReferenceFacet',
+            Label         : '{i18n>output_review}',
+            Target        : '@UI.FieldGroup#Output_review',
+            ![@UI.Hidden] : {$edmJson : {$Eq : [
+                {$Path : 'check_in'},
+                false
+            ]}}
         }
     ],
 }, ) {};

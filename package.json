@@ -22,7 +22,9 @@
     "@sapui5/ts-types": "^1.92.2",
     "eslint": "^7.32.0",
     "rimraf": "^3.0.2",
-    "sqlite3": "^5.0.4"
+    "sqlite3": "^5.0.4",
+    "@sap-cloud-sdk/core": "^1.46.0",
+    "@sap-cloud-sdk/util": "3.0.1"
   },
   "scripts": {
     "start": "cds run",
@@ -30,9 +32,7 @@
     "undeploy": "cf undeploy capdispatches --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-orders": "cds watch --open orders/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-cargoordermanagement": "cds watch --open cargoordermanagement/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-vehiculessecurityreview": "cds watch --open vehiculessecurityreview/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-vehiculesecurityreview": "cds watch --open vehiculesecurityreview/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-dispatchesforms": "cds watch --open dispatchesforms/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-loosebagnationalcargo": "cds watch --open loosebagnationalcargo/webapp/index.html?sap-ui-xx-viewCache=false",
@@ -97,13 +97,9 @@
   },
   "sapux": [
     "app/uidispatchesportal",
-    "app/orders",
     "app/cargoordermanagement",
-    "app/vehiculessecurityreview",
     "app/vehiculesecurityreview",
     "app/dispatchesforms",
-    "app/dispatchesforms",
-    "app/loosebagnationalcargo",
     "app/bigbagnationalcargo",
     "app/loosebagnationalcargo"
   ]

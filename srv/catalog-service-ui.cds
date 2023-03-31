@@ -17,6 +17,10 @@ annotate service.StatusOrder with {
 };
 
 annotate service.InternalStatus with {
+    icon @(UI.IsImageURL : true)
+};
+
+annotate service.InternalStatus with {
     ID          @(
         UI     : {Hidden : true},
         Common : {Text : {
@@ -48,3 +52,5 @@ annotate service.City with {
     );
     description @(UI : {HiddenFilter : true});
 };
+
+
