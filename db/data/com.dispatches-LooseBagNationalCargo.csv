@@ -1,0 +1,3 @@
+﻿ID,status,status_indicator,image01,image02,image03,image04,image05,image06,answer01,answer02,answer03,answer04,answer05,answer06,answer07,answer08,answer09,answer10,driver_signature,driver_signature_date,auxiliary_signature,auxiliary_signature_date,supervisor_signature,supervisor_signature_date,remarks
+1,bien,verde,1,1,1,0,0,1,0,0,0,0,0,1,1,1,1,1,firma1,,firma2,,firma3,,
+2,mal,rojo,1,1,1,0,0,1,0,0,0,0,0,1,1,1,1,1,firma1,,firma2,,firma3,,

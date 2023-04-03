@@ -12,8 +12,8 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
-      "version": "1.9.1",
-      "toolsId": "546eb9c7-8e58-47f8-ba32-cfe377d867bd"
+      "version": "1.9.2",
+      "toolsId": "b30edf27-18d2-4fbd-a179-cd59507e0b3d"
     },
     "dataSources": {
       "mainService": {
@@ -46,7 +46,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.111.1",
+      "minUI5Version": "1.112.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -110,27 +110,6 @@
                 "DispatchesForms": {
                   "detail": {
                     "route": "DispatchesFormsObjectPage"
-                  }
-                }
-              },
-              "initialLoad": true,
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "columns": {
-                    "order_id": {
-                      "header": "{{Order}}",
-                      "width": "10%",
-                      "template": "com.dispatchesforms.dispatchesforms.ext.fragment.orderidColumn",
-                      "properties": [
-                        "order_id"
-                      ],
-                      "availability": "Default",
-                      "horizontalAlign": "Right",
-                      "position": {
-                        "placement": "Before",
-                        "anchor": "DataField::cargo_date"
-                      }
-                    }
                   }
                 }
               }

@@ -1,0 +1,10 @@
+﻿ID,description,icon,CUSTOM_ICON,FILENAMECUSTOM_ICON
+1,En espera,/vehiculesecurityreview/webapp/icon/TruckWithe.bmp,,
+2,Ingreso autorizado,/vehiculesecurityreview/webapp/icon/TruckGreenEmpty.bmp,,
+3,Ingreso no autorizado,/vehiculesecurityreview/webapp/icon/TruckRedEmpty.bmp,,
+4,En cargue,,,
+5,Orden salida,,,
+6,Cargue finalizado,,,
+7,Salida autorizada,,,
+8,Salida no autorizado,,,
+9,En verificación, ,,

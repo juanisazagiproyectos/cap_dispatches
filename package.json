@@ -17,14 +17,14 @@
     "passport": "^0.6.0"
   },
   "devDependencies": {
+    "@sap-cloud-sdk/core": "^1.46.0",
+    "@sap-cloud-sdk/util": "3.0.1",
     "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
-    "@sap/ux-specification": "^1.108.1",
+    "@sap/ux-specification": "^1.108.2",
     "@sapui5/ts-types": "^1.92.2",
     "eslint": "^7.32.0",
     "rimraf": "^3.0.2",
-    "sqlite3": "^5.0.4",
-    "@sap-cloud-sdk/core": "^1.46.0",
-    "@sap-cloud-sdk/util": "3.0.1"
+    "sqlite3": "^5.0.4"
   },
   "scripts": {
     "start": "cds run",
@@ -101,6 +101,8 @@
     "app/vehiculesecurityreview",
     "app/dispatchesforms",
     "app/bigbagnationalcargo",
-    "app/loosebagnationalcargo"
+    "app/loosebagnationalcargo",
+    "app/loosebagnationalcargo",
+    "app/dispatchesforms"
   ]
 }

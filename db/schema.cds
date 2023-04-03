@@ -177,7 +177,8 @@ entity BigBagNationalCargo : managed {
 
 entity LooseBagNationalCargo : managed {
     key ID                        : UUID @(Core.Computed : true);
-    key order                     : Association to CargoOrders;
+        // key order                     : Association to CargoOrders;
+        order                     : Association to CargoOrders;
         status                    : String(10);
         status_indicator          : String(50);
         shift                     : Association to Shift;
@@ -295,3 +296,14 @@ entity ConsecutiveId : managed {
         num_min : Integer;
         num_max : Integer;
 };
+
+entity GridList : cuid {
+    key ID          : Integer;
+        description : String;
+        img         : String;
+};
+
+entity CheckList : cuid {
+    key ID          : Integer;
+        description : String;
+}

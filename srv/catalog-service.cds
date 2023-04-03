@@ -191,6 +191,10 @@ service CatalogService {
     entity LooseBagNationalCargo                                     as projection on dispatches.LooseBagNationalCargo;
     //BigBag National Cargo
     entity BigBagNationalCargo                                       as projection on dispatches.BigBagNationalCargo;
+    //
+    entity GridList                                                  as projection on dispatches.GridList;
+    // 
+    entity CheckList                                                 as projection on dispatches.CheckList;
     // entity VehicleEntrySecurityCheck as projection on dispatches.CargoOrders;
     // annotate VehicleEntrySecurityCheck with @odata.draft.enabled;
     // entity VehicleExitSecurityCheck  as projection on dispatches.CargoOrders;

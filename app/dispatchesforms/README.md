@@ -1,9 +1,9 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Mar 14 2023 22:52:47 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Mon Apr 03 2023 18:48:35 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
-|**App Generator Version**<br>1.9.1|
+|**App Generator Version**<br>1.9.2|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
@@ -12,7 +12,7 @@
 |**Application Title**<br>Dispatches Forms|
 |**Namespace**<br>com.dispatchesforms|
 |**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.111.1|
+|**UI5 Version**<br>1.112.1|
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
@@ -20,7 +20,7 @@
 
 ## dispatchesforms
 
-A Fiori application.
+Dispatches Forms
 
 ### Starting the generated app
 
