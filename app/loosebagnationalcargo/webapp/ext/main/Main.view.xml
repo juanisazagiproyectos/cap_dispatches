@@ -1,6 +1,124 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros"
-    xmlns:html="http://www.w3.org/1999/xhtml" controllerName="com.loosebagnationalcargo.loosebagnationalcargo.ext.main.Main">
-    <Page id="Main" title="Main">
+<mvc:View xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m"
+    xmlns:macros="sap.fe.macros"
+    xmlns:uxap="sap.uxap"
+    xmlns:semantic="sap.m.semantic" 
+    xmlns:footerbar="sap.ushell.ui.footerbar" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:fi="sap.ui.layout.form" 
+    xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:u="sap.ui.unified"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:sc="com.loosebagnationalcargo.loosebagnationalcargo.control" 
+    controllerName="com.loosebagnationalcargo.loosebagnationalcargo.ext.main.Main">
+    <!-- <Page id="Main" title="Main">
         <content></content>
-    </Page>
+    </Page> -->
+            <uxap:ObjectPageLayout  id="ObjectPageLayout" upperCaseAnchorBar="false">
+                <uxap:headerTitle>
+                    <uxap:ObjectPageHeader objectTitle="{i18n>appTitle}">
+                    </uxap:ObjectPageHeader>
+                </uxap:headerTitle>
+                <uxap:headerContent>
+                    <ObjectAttribute title="" text=""/>
+                </uxap:headerContent>
+                <uxap:sections>
+                    <uxap:ObjectPageSection titleUppercase="false" title="TURNO">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <uxap:blocks>
+                                    <!-- <ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/> -->
+                                    <Label text="Turno" labelFor="infoturno"/>
+                                    <Select id="infoturno">
+                                        <core:Item key="1" text="A" />
+                                        <core:Item key="2" text="B" />
+                                        <core:Item key="3" text="C" />
+                                        <core:Item key="4" text="D" />
+                                    </Select>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection titleUppercase="false" title="GUÍA GRÁFICA">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <f:GridList
+                                    id="gridList"
+                                    headerText=""
+                                    mode="MultiSelect"
+                                    items="{ path: '/Imagenes' }"
+                                    selectionChange="onSelectionChange"
+                                    delete="onDelete"
+                                    class="sapUiResponsiveContentPadding">
+                                    <f:customLayout>
+                                        <grid:GridBasicLayout gridTemplateColumns="repeat(auto-fit, minmax(16rem, 1fr))" gridGap="0.5rem" />
+                                    </f:customLayout>
+                                    <f:GridListItem
+                                        detailPress="onDetailPress"
+                                        press="onPress"
+                                        counter="{ID}">
+                                        <VBox height="100%">
+                                            <Image src="{img}" width="100%" visible="true" class="imageDisplayBlock" />
+                                            <HBox height="100%" class="sapUiSmallMargin" alignItems="Center" visible="true">
+                                                <!-- <Image src="{img}" width="3rem" class="sapUiSmallMarginEnd" /> -->
+                                                <VBox>
+                                                    <!-- <Title text="{Name}" wrapping="true" /> -->
+                                                    <Label text="{description}" wrapping="true" />
+                                                </VBox>
+                                            </HBox>
+                                        </VBox>
+                                    </f:GridListItem>
+                                </f:GridList>                                
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection titleUppercase="false" title="CHECKLIST">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <uxap:blocks>
+                                    <List id="ChList" headerText="" items="{ path: '/CheckList' }">
+                                        <InputListItem label="{ID}.{description}" >
+                                            <Switch type="AcceptReject" state="true"/>
+                                        </InputListItem>
+                                    </List>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection titleUppercase="false" title="OBSERVACIONES">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <l:VerticalLayout id="idVerticalLayout" class="sapUiContentPadding" width="100%">
+                                    <HBox alignItems="Center">
+                                            <Label text="Select TinyMCE version:" labelFor="idSelect" class="sapUiSmallMarginEnd"/>
+                                            <Select id="idSelect" change="handleSelect">
+                                                <core:Item key="TinyMCE6" text="RichTextEditor with TinyMCE6"/>
+                                                <core:Item key="TinyMCE5" text="RichTextEditor with TinyMCE5"/>
+                                            </Select>
+                                    </HBox>
+                                </l:VerticalLayout>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection titleUppercase="false" title="FIRMAS">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection title="Firma 1" titleUppercase="false">
+                               <FlexBox class="sapUiTinyMarginTop">
+                                    <sc:Signature id="signature"></sc:Signature>
+                                    <Button text="Clear" press="onClearSignature" class="sapUiTinyMarginBegin"></Button>
+                               </FlexBox>
+                            </uxap:ObjectPageSubSection>
+                            <uxap:ObjectPageSubSection title="Firma 2" titleUppercase="false">
+                               <FlexBox class="sapUiTinyMarginTop">
+                                    <sc:Signature2 id="signature2"></sc:Signature2>
+                                    <Button text="Clear" press="onClearSignature2" class="sapUiTinyMarginBegin"></Button>
+                               </FlexBox>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>                        
+                    </uxap:ObjectPageSection>
+                </uxap:sections>
+            </uxap:ObjectPageLayout>
 </mvc:View>
